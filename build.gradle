@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+group project.group
+version project.version
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+sourceSets {
+    main {
+        java.srcDir '$projectDir/src/main/java'
+    }
+}
+
+application {
+    mainClass = 'pl.edu.pw.elka.prm2t22l.battleships.Main'
+}
+
+dependencies {
+    implementation group: 'org.json', name: 'json', version: '20220320'
+}
