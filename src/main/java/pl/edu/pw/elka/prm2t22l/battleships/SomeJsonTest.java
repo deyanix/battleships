@@ -46,7 +46,6 @@ public class SomeJsonTest<T> {
 
     public JSONObject toJsonObject() {
         JSONObject jObject = new JSONObject();
-        int N = 3;
         JSONArray array1 = toJsonArray(this.list1);
         JSONArray array2 = toJsonArray(this.list2);
         jObject.put("0", array1);
