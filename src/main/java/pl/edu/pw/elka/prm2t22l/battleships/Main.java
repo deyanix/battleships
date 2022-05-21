@@ -26,5 +26,21 @@ public class Main {
 		for (int i = 0; i < board.getHeight(); i++) {
 			System.out.printf("Row %d: %d%n", i, board.getFieldsInRowByState(FieldState.BATTLESHIP, i));
 		}
+
+		//boardGenTest();
 	}
+
+	public static void boardGenTest(){
+
+		for (int i = 0; i < 10; i++) {
+			GameConfiguration newConf = new GameConfiguration(3, 3,
+					true, Level.EASY);
+
+			BoardGenerator newBoard = new BoardGenerator(newConf);
+			newBoard.placeShips(new Ship[]{Ship.SHORT, Ship.SHORT,Ship.SHORT, Ship.MEDIUM, Ship.MEDIUM, Ship.LONG});
+
+			Board generatedBoard = newBoard.getConfBoard();
+			generatedBoard.display();
+		}
+	};
 }
