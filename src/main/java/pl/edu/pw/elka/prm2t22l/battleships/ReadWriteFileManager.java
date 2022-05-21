@@ -58,9 +58,9 @@ public class ReadWriteFileManager<T> {
         JSONObject jObject = new JSONObject();
         JSONArray array1 = toJsonArray(this.gameBoard);
         JSONArray array2 = toJsonArray(this.playerBoard);
-        jObject.put("0", array1);
-        jObject.put("1",array2);
-        jObject.put("2",this.time);
+        jObject.put("Game Board", array1);
+        jObject.put("Player Board",array2);
+        jObject.put("Time",this.time);
 
         return jObject;
     }
@@ -121,8 +121,8 @@ public class ReadWriteFileManager<T> {
         jsonTest.readFile(fileName);
 
         JSONObject jObject = jsonTest.readFile(fileName);
-        System.out.println(jObject.get("0"));
-        System.out.println(jObject.get("1"));
-        System.out.println(jObject.get("2"));
+        System.out.println(jObject.get("Game Board"));
+        System.out.println(jObject.get("Player Board"));
+        System.out.println(jObject.get("Time"));
     }
 }
