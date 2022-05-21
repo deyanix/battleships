@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ReadWriteFileManager<T> {
-    private List<T> gameBoard = new ArrayList<>();
-    private List<T> playerBoard = new ArrayList<>();
+    private List<T> gameBoard;
+    private List<T> playerBoard;
     private int time;
 
     public ReadWriteFileManager() {
@@ -66,8 +66,7 @@ public class ReadWriteFileManager<T> {
     }
 
     private JSONObject toJsonObject(String data) {
-        JSONObject jsonObject = new JSONObject(data);
-        return jsonObject;
+        return new JSONObject(data);
     }
 
     public void writeFile(String fileName) {
@@ -84,13 +83,12 @@ public class ReadWriteFileManager<T> {
         try {
             File file = new File(fileName);
             Scanner reader = new Scanner(file);
-            String data = "";
+            StringBuilder data = new StringBuilder();
             while (reader.hasNextLine()) {
-                data = data + reader.nextLine();
+                data.append(reader.nextLine());
             }
             reader.close();
-            JSONObject jsonObject = toJsonObject(data);
-            return jsonObject;
+            return toJsonObject(data.toString());
         } catch (FileNotFoundException | JSONException e) {
             e.printStackTrace();
         }
