@@ -1,5 +1,7 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
+import java.util.Random;
+
 public class GameConfiguration {
 
     private final int numberOfVisibleFields;
@@ -14,6 +16,14 @@ public class GameConfiguration {
         this.hintsAvailable = hintsAvailable;
         this.level = level;
         this.seed = seed;
+    }
+    public GameConfiguration(int numberOfVisibleFields, int numberOfAvailableUndos, boolean hintsAvailable, Level level){
+        this.numberOfVisibleFields = numberOfVisibleFields;
+        this.numberOfAvailableUndos = numberOfAvailableUndos;
+        this.hintsAvailable = hintsAvailable;
+        this.level = level;
+        Random random = new Random();
+        this.seed = random.nextLong();
     }
     public void prnLevelName(){
         for (Level currentLevel : Level.values()) {
