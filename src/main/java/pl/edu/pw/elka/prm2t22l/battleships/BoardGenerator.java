@@ -7,6 +7,10 @@ public class BoardGenerator {
     private Board confBoard;
     private final int nOfAttempts = 100000;
 
+    public BoardGenerator(GameConfiguration chosenConfiguration) {
+        this.chosenConfiguration = chosenConfiguration;
+        makeClearBoard();
+    }
     private void makeClearBoard(){
         confBoard = Board.createEmptyBoard(chosenConfiguration.getLevel().getWidth(),
                                            chosenConfiguration.getLevel().getHeight());
@@ -17,14 +21,10 @@ public class BoardGenerator {
             makeClearBoard();
         }
     }
-    private void placeShip(){
+    private void placeShip() {
         boolean isVertical = ThreadLocalRandom.current().nextBoolean();
-        if (isVertical){
+        if (isVertical) {
 
         }
-    }
-    public BoardGenerator(GameConfiguration chosenConfiguration) {
-        this.chosenConfiguration = chosenConfiguration;
-        makeClearBoard();
     }
 }

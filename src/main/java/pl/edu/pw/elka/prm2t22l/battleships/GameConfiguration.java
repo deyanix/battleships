@@ -7,12 +7,19 @@ public class GameConfiguration {
     private final boolean hintsAvailable;
     private final Level level;
     private long seed;
+
+    public GameConfiguration(int numberOfVisibleFields, int numberOfAvailableUndos, boolean hintsAvailable, long seed, Level level){
+        this.numberOfVisibleFields = numberOfVisibleFields;
+        this.numberOfAvailableUndos = numberOfAvailableUndos;
+        this.hintsAvailable = hintsAvailable;
+        this.level = level;
+        this.seed = seed;
+    }
     public void prnLevelName(){
         for (Level currentLevel : Level.values()) {
             System.out.println(currentLevel);
         }
     }
-
     public int getNumberOfVisibleFields() {
         return numberOfVisibleFields;
     }
@@ -31,13 +38,5 @@ public class GameConfiguration {
 
     public long getSeed() {
         return seed;
-    }
-
-    public GameConfiguration(int numberOfVisibleFields, int numberOfAvailableUndos, boolean hintsAvailable, long seed, Level level){
-        this.numberOfVisibleFields = numberOfVisibleFields;
-        this.numberOfAvailableUndos = numberOfAvailableUndos;
-        this.hintsAvailable = hintsAvailable;
-        this.level = level;
-        this.seed = seed;
     }
 }
