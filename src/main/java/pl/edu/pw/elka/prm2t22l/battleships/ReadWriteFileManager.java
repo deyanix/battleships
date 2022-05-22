@@ -94,33 +94,4 @@ public class ReadWriteFileManager<T> {
         }
         return null;
     }
-
-    public static void main(String[] args) {
-        List<Integer> listToTest = new ArrayList<>();
-        List<Integer> listToTest2 = new ArrayList<>();
-        ReadWriteFileManager jsonTest = new ReadWriteFileManager();
-
-        int N = 10;
-        for(int i = 0; i < N; i++) {
-            listToTest.add(i);
-            for(int j = 0; j < N; j++) {
-                listToTest2.add(j);
-            }
-        }
-
-        jsonTest.setGameBoard(listToTest);
-        jsonTest.setPlayerBoard(listToTest2);
-        jsonTest.setTime(67);
-
-        JSONObject newJsonObject = jsonTest.toJsonObject();
-        String fileName = "data/jsonFile.json";
-
-        jsonTest.writeFile(fileName);
-        jsonTest.readFile(fileName);
-
-        JSONObject jObject = jsonTest.readFile(fileName);
-        System.out.println(jObject.get("Game Board"));
-        System.out.println(jObject.get("Player Board"));
-        System.out.println(jObject.get("Time"));
-    }
 }
