@@ -6,7 +6,8 @@ import java.awt.event.*;
 
 public class InterfaceMainMenu {
 
-    InterfaceMainMenu() {
+    InterfaceMainMenu() throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         JFrame fMainMenu = new JFrame("BATTLESHIPS");
         JButton bNewGame = new JButton("New Game");
         JButton bLoadGame = new JButton("Load Game");

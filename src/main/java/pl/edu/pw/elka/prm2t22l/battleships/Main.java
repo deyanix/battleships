@@ -1,7 +1,9 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
+import javax.swing.*;
+
 public class Main {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		Board board = Board.createEmptyBoard(3, 3);
 		board.setFieldState(0, 0, FieldState.EMPTY);
 		board.setFieldState(1, 0, FieldState.WATER);
