@@ -35,6 +35,8 @@ public class Main {
 		}.start();
 
 		boardGenTest();
+
+		new InterfaceMainMenu();  //INTERFACE TEST
 	}
 
 	public static void boardGenTest(){

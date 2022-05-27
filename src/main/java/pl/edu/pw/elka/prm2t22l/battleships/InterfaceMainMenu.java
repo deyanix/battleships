@@ -1,67 +1,48 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
 import java.awt.*;
+import javax.swing.*;
 import java.awt.event.*;
 
-public class InterfaceMainMenu implements ActionListener {
+public class InterfaceMainMenu {
 
-    Frame frameOne;
-    Panel panelOne;
-    Button bTestOne, bTestTwo, bTestThree;
-    Label testLabel;
-    TextField textFieldTest;
-    GridLayout gridLayoutTest;
+    InterfaceMainMenu() {
+        JFrame fMainMenu = new JFrame("BATTLESHIPS");
+        JButton bNewGame = new JButton("New Game");
+        JButton bLoadGame = new JButton("Load Game");
+        JButton bScoreboard = new JButton("Scoreboard");
+        JButton bExit = new JButton("Exit");
 
-    InterfaceMainMenu(){
-        testLabel = new Label();
-        testLabel.setText("   BATTLESHIPS");
-        testLabel.setBackground(Color.GRAY);
 
-        frameOne = new Frame("Main Menu");
-        frameOne.setLayout(new FlowLayout());
-        panelOne = new Panel();
+        bNewGame.setBounds(125, 100,150,50);
+        bLoadGame.setBounds(125, 150,150,50);
+        bScoreboard.setBounds(125, 200,150,50);
+        bExit.setBounds(125, 250,150,50);
 
-        bTestOne = new Button("New Game");
-        //bTestOne.setBounds(200, 400, 100, 25);
-        bTestOne.addActionListener(this);
+//------EXIT BUTTON ACTION--------------------------------------
+        bExit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
 
-        bTestTwo = new Button("Load Game");
-        //bTestTwo.setBounds(200, 300, 100, 25);
-        bTestTwo.addActionListener(this);
+        Image icon = Toolkit.getDefaultToolkit().getImage("docs\\warship.png");
+        fMainMenu.setIconImage(icon);
 
-        bTestThree = new Button("Quit");
-        //bTestThree.setBounds(200, 200, 100, 25);
-        bTestThree.addActionListener(this);
+        fMainMenu.setSize(400,500);
+        fMainMenu.add(bNewGame);
+        fMainMenu.add(bLoadGame);
+        fMainMenu.add(bScoreboard);
+        fMainMenu.add(bExit);
+        fMainMenu.setLayout(null);
+        fMainMenu.setVisible(true);
 
-        //textFieldTest = new TextField(1);
-        //frameOne.add(textFieldTest);
-
-        gridLayoutTest = new GridLayout(4, 1);
-        panelOne.setLayout(gridLayoutTest);
-
-        panelOne.add(testLabel);
-        panelOne.add(bTestOne);
-        panelOne.add(bTestTwo);
-        panelOne.add(bTestThree);
-
-        frameOne.add(panelOne);
-        frameOne.setSize(400, 500);
-        frameOne.setVisible(true);
-        frameOne.setBackground(Color.GRAY);
-        frameOne.addWindowListener(new WindowAdapter() {
+        fMainMenu.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 System.exit(0);
             }
         });
-
     }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==bTestOne){
-        }
-    }
-
 }
-
