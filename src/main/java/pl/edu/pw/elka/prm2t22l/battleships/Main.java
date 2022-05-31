@@ -36,7 +36,7 @@ public class Main {
 			}
 		}.start();
 
-		boardGenTest();
+		boardGenTest(); // BOARD GENERATION TEST
 
 		new InterfaceMainMenu();  //INTERFACE TEST
 	}
@@ -45,10 +45,10 @@ public class Main {
 
 		for (int i = 0; i < 10; i++) {
 			GameConfiguration newConf = new GameConfiguration(3, 3,
-					true, Level.EASY);
+					true, 46182956, Level.EASY);
 
 			BoardGenerator newBoard = new BoardGenerator(newConf);
-			newBoard.placeShips(new Ship[]{Ship.SHORT, Ship.SHORT,Ship.SHORT, Ship.MEDIUM, Ship.MEDIUM, Ship.LONG});
+			newBoard.placeShips(new Ship[]{Ship.SHORT, Ship.SHORT,Ship.SHORT, Ship.MEDIUM, Ship.LONG, Ship.MEDIUM});
 
 			Board generatedBoard = newBoard.getConfBoard();
 			generatedBoard.display();

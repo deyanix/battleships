@@ -1,26 +1,24 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Stream;
 
 public class BoardGenerator {
     private final GameConfiguration chosenConfiguration;
     private Board confBoard;
-    private long seed;
-    private final int nOfAttempts = 100000;
+    private final int nOfAttempts = 10000;
+    private Random randomGen;
 
     public BoardGenerator(GameConfiguration chosenConfiguration) {
         this.chosenConfiguration = chosenConfiguration;
-        seed = chosenConfiguration.getSeed();
+        randomGen = new Random(chosenConfiguration.getSeed());
         makeClearBoard();
     }
-    private int getRandomNumber(int min, int max, long seed) {
-        Random random = new Random(seed);
-        return random.nextInt(max - min) + min;
-    }
     private int getRandomNumber(int min, int max) {
-        Random random = new Random();
-        return random.nextInt(max - min) + min;
+        return randomGen.nextInt(max - min) + min;
     }
     public Board getConfBoard(){
         return confBoard;
@@ -31,6 +29,10 @@ public class BoardGenerator {
     }
 
     public boolean placeShips(Ship[] ships){
+        Ship[] sortedShips = Arrays.stream(ships).sorted(Comparator.comparing(Ship::getLength).reversed()).toArray(Ship[]::new);
+        for (Ship s: sortedShips) { System.out.println(s.getLength());
+
+        }
         boolean succesfullAttempt = true;
         int check= 0;
 
@@ -38,7 +40,6 @@ public class BoardGenerator {
         for (int i = 0; i < nOfAttempts; i++) {
             check = i;
             makeClearBoard();
-
             innerloop:
             for (int j = 0; j < ships.length; j++) {
                 boolean attempt = placeShip(ships[j]);
@@ -67,8 +68,8 @@ public class BoardGenerator {
 
         if (maxCol < 1 || maxRow < 1){return false;}
 
-        int startFieldX = getRandomNumber(0, maxRow, seed);
-        int startFieldY = getRandomNumber(0, maxCol, seed+1);
+        int startFieldX = getRandomNumber(0, maxRow);
+        int startFieldY = getRandomNumber(0, maxCol);
         //System.out.println(startFieldX+" "+startFieldY);
         int ShipEndX;
         int ShipEndY;
@@ -107,7 +108,6 @@ public class BoardGenerator {
                 confBoard.setFieldState(startFieldX+i, startFieldY, FieldState.BATTLESHIP);
             }
         }}
-        seed = seed+2;
         return canFit;
     }
 }

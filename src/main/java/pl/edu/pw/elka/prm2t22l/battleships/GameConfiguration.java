@@ -49,4 +49,8 @@ public class GameConfiguration {
     public long getSeed() {
         return seed;
     }
+
+    public void setSeed(long seed) {
+        this.seed = seed;
+    }
 }
