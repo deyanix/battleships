@@ -1,5 +1,7 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
+import pl.edu.pw.elka.prm2t22l.battleships.gui.InterfaceMainMenu;
+
 public class Main {
 	public static void main(String[] args) throws Exception {
 		Board board = Board.createEmptyBoard(3, 3);
