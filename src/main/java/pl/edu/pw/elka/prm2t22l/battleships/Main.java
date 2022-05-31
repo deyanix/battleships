@@ -45,7 +45,7 @@ public class Main {
 
 		for (int i = 0; i < 10; i++) {
 			GameConfiguration newConf = new GameConfiguration(3, 3,
-					true, 46182956, Level.EASY);
+					true, Level.EASY);
 
 			BoardGenerator newBoard = new BoardGenerator(newConf);
 			newBoard.placeShips(new Ship[]{Ship.SHORT, Ship.SHORT,Ship.SHORT, Ship.MEDIUM, Ship.LONG, Ship.MEDIUM});

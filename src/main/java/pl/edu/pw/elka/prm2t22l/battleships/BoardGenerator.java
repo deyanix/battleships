@@ -3,8 +3,6 @@ package pl.edu.pw.elka.prm2t22l.battleships;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Stream;
 
 public class BoardGenerator {
     private final GameConfiguration chosenConfiguration;
@@ -29,10 +27,8 @@ public class BoardGenerator {
     }
 
     public boolean placeShips(Ship[] ships){
-        Ship[] sortedShips = Arrays.stream(ships).sorted(Comparator.comparing(Ship::getLength).reversed()).toArray(Ship[]::new);
-        for (Ship s: sortedShips) { System.out.println(s.getLength());
-
-        }
+        Ship[] sortedShips = Arrays.stream(ships).sorted(Comparator.comparing(Ship::getLength).reversed())
+                                                 .toArray(Ship[]::new);
         boolean succesfullAttempt = true;
         int check= 0;
 
@@ -41,12 +37,12 @@ public class BoardGenerator {
             check = i;
             makeClearBoard();
             innerloop:
-            for (int j = 0; j < ships.length; j++) {
-                boolean attempt = placeShip(ships[j]);
+            for (int j = 0; j < sortedShips.length; j++) {
+                boolean attempt = placeShip(sortedShips[j]);
                 if(!attempt){
                     break innerloop;
                 }
-                if(attempt && (j+1 == ships.length)){
+                if(attempt && (j+1 == sortedShips.length)){
                     break backtrackloop;
                 }
             }
@@ -59,7 +55,7 @@ public class BoardGenerator {
         return true;
     }
     private boolean placeShip(Ship ship) {
-        boolean isVertical = ThreadLocalRandom.current().nextBoolean();
+        boolean isVertical = randomGen.nextBoolean();
         int maxCol = chosenConfiguration.getLevel().getWidth();
         int maxRow = chosenConfiguration.getLevel().getHeight();
 
