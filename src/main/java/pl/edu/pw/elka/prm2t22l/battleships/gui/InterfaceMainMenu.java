@@ -8,11 +8,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class InterfaceMainMenu extends Canvas{
+public class InterfaceMainMenu extends JPanel{
 
     public InterfaceMainMenu() throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        JFrame fMainMenu = new JFrame("BATTLESHIPS");
         JButton bNewGame = new JButton("New Game");
         JButton bLoadGame = new JButton("Load Game");
         JButton bScoreboard = new JButton("Scoreboard");
@@ -36,6 +35,11 @@ public class InterfaceMainMenu extends Canvas{
         bScoreboard.setBounds(225, 115,150,50);
         bExit.setBounds(225, 170,150,50);
 
+        bNewGame.setFocusable(false);
+        bLoadGame.setFocusable(false);
+        bScoreboard.setFocusable(false);
+        bExit.setFocusable(false);
+
 //------EXIT BUTTON ACTION--------------------------------------
         bExit.addActionListener(new ActionListener() {
             @Override
@@ -49,27 +53,20 @@ public class InterfaceMainMenu extends Canvas{
         pButtonsPlace.add(bScoreboard);
         pButtonsPlace.add(bExit);
 
-        Image icon = Toolkit.getDefaultToolkit().getImage("src\\main\\resources\\warship.png");
-        fMainMenu.setIconImage(icon);
 
-        fMainMenu.setSize(600,600);
+
+
+        setSize(600,600);
         /*
         fMainMenu.add(bNewGame);
         fMainMenu.add(bLoadGame);
         fMainMenu.add(bScoreboard);
         fMainMenu.add(bExit);
          */
-        fMainMenu.add(pLogoPlace);
-        fMainMenu.add(pButtonsPlace);
-        fMainMenu.setLayout(null);
-        fMainMenu.setVisible(true);
-
-        fMainMenu.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                System.exit(0);
-            }
-        });
+        add(pLogoPlace);
+        add(pButtonsPlace);
+        setLayout(null);
+        setVisible(true);
 
     }
 }
