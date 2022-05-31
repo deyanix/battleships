@@ -1,9 +1,8 @@
-package pl.edu.pw.elka.prm2t22l.battleships;
+package pl.edu.pw.elka.prm2t22l.battleships.filemanager;
 
 import org.json.*;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
