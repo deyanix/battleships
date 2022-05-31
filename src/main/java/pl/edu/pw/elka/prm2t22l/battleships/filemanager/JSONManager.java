@@ -15,7 +15,7 @@ public class JSONManager {
         System.out.println(this.jObject);
     }
 
-    private JSONArray toJsonArray(char[] array) {
+    public JSONArray toJsonArray(char[] array) {
         JSONArray jArray = new JSONArray();
         for(char element : array) {
             jArray.put(element);
@@ -23,7 +23,7 @@ public class JSONManager {
         return jArray;
     }
 
-    private JSONArray toJsonArray(boolean[] array) {
+    public JSONArray toJsonArray(boolean[] array) {
         JSONArray jArray = new JSONArray();
         for(boolean element : array) {
             jArray.put(element);
@@ -31,7 +31,7 @@ public class JSONManager {
         return jArray;
     }
 
-    private JSONArray toJsonArray(int[] array) {
+    public JSONArray toJsonArray(int[] array) {
         JSONArray jArray = new JSONArray();
         for(int element : array) {
             jArray.put(element);
@@ -70,7 +70,7 @@ public class JSONManager {
         return jObject;
     }
 
-    private JSONObject toJsonObject(String data) {
+    public JSONObject toJsonObject(String data) {
         return new JSONObject(data);
     }
 }

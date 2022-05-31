@@ -6,12 +6,12 @@ import java.io.*;
 import java.util.List;
 import java.util.Scanner;
 
-public class ReadWriteFileManager<T> {
+public class FileManagerPrototype<T> {
     private List<T> gameBoard;
     private List<T> playerBoard;
     private int time;
 
-    public ReadWriteFileManager() {
+    public FileManagerPrototype() {
         gameBoard = null;
         playerBoard = null;
         time = 0;
