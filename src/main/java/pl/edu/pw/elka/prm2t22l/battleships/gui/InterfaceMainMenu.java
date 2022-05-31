@@ -26,7 +26,7 @@ public class InterfaceMainMenu extends Canvas{
         pButtonsPlace.setLayout(null);
 
         try {
-            BufferedImage iLogo = ImageIO.read(new File("docs\\battleship_logo.png"));
+            BufferedImage iLogo = ImageIO.read(new File("src\\main\\resources\\battleship_logo.png"));
             JLabel lBattleshipLogo = new JLabel(new ImageIcon(iLogo));
             pLogoPlace.add(lBattleshipLogo);
         } catch (IOException e){}
@@ -49,7 +49,7 @@ public class InterfaceMainMenu extends Canvas{
         pButtonsPlace.add(bScoreboard);
         pButtonsPlace.add(bExit);
 
-        Image icon = Toolkit.getDefaultToolkit().getImage("docs\\warship.png");
+        Image icon = Toolkit.getDefaultToolkit().getImage("src\\main\\resources\\warship.png");
         fMainMenu.setIconImage(icon);
 
         fMainMenu.setSize(600,600);
