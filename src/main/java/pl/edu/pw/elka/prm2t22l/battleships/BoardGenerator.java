@@ -3,28 +3,26 @@ package pl.edu.pw.elka.prm2t22l.battleships;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Stream;
 
 public class BoardGenerator {
     private final GameConfiguration chosenConfiguration;
-    private Board confBoard;
+    private Board configuration;
     private final int nOfAttempts = 10000;
-    private Random randomGen;
+    private final Random randomGen;
 
     public BoardGenerator(GameConfiguration chosenConfiguration) {
         this.chosenConfiguration = chosenConfiguration;
-        randomGen = new Random(chosenConfiguration.getSeed());
+        this.randomGen = new Random(chosenConfiguration.getSeed());
         makeClearBoard();
     }
     private int getRandomNumber(int min, int max) {
         return randomGen.nextInt(max - min) + min;
     }
-    public Board getConfBoard(){
-        return confBoard;
+    public Board getConfiguration(){
+        return configuration;
     }
     private void makeClearBoard(){
-        confBoard = Board.createEmptyBoard(chosenConfiguration.getLevel().getWidth(),
+        configuration = Board.createEmptyBoard(chosenConfiguration.getLevel().getWidth(),
                                            chosenConfiguration.getLevel().getHeight());
     }
 
@@ -59,7 +57,7 @@ public class BoardGenerator {
         return true;
     }
     private boolean placeShip(Ship ship) {
-        boolean isVertical = ThreadLocalRandom.current().nextBoolean();
+        boolean isVertical = randomGen.nextBoolean();
         int maxCol = chosenConfiguration.getLevel().getWidth();
         int maxRow = chosenConfiguration.getLevel().getHeight();
 
@@ -93,7 +91,7 @@ public class BoardGenerator {
         outerloop:
         for (int j = startCheckX; j <= endCheckX; j++) {
             for (int k = startCheckY; k <= endCheckY; k++) {
-                if (confBoard.getFieldState(j, k) != (FieldState.EMPTY)) {
+                if (configuration.getFieldState(j, k) != (FieldState.EMPTY)) {
                     canFit = false;
                     break outerloop;
                 }
@@ -102,10 +100,10 @@ public class BoardGenerator {
         if (canFit){
         for (int i = 0; i < ship.getLength(); i++) {
             if (isVertical){
-                confBoard.setFieldState(startFieldX, startFieldY+i, FieldState.BATTLESHIP);
+                configuration.setFieldState(startFieldX, startFieldY+i, FieldState.BATTLESHIP);
             }
             else{
-                confBoard.setFieldState(startFieldX+i, startFieldY, FieldState.BATTLESHIP);
+                configuration.setFieldState(startFieldX+i, startFieldY, FieldState.BATTLESHIP);
             }
         }}
         return canFit;

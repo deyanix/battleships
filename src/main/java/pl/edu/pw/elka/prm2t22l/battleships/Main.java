@@ -1,7 +1,5 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
-import javax.swing.*;
-
 public class Main {
 	public static void main(String[] args) throws Exception {
 		Board board = Board.createEmptyBoard(3, 3);
@@ -50,7 +48,7 @@ public class Main {
 			BoardGenerator newBoard = new BoardGenerator(newConf);
 			newBoard.placeShips(new Ship[]{Ship.SHORT, Ship.SHORT,Ship.SHORT, Ship.MEDIUM, Ship.LONG, Ship.MEDIUM});
 
-			Board generatedBoard = newBoard.getConfBoard();
+			Board generatedBoard = newBoard.getConfiguration();
 			generatedBoard.display();
 		}
 	};
