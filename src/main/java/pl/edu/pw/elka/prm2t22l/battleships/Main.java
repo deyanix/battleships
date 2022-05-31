@@ -1,5 +1,6 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
+import pl.edu.pw.elka.prm2t22l.battleships.gui.FrameInterface;
 import pl.edu.pw.elka.prm2t22l.battleships.gui.InterfaceMainMenu;
 
 public class Main {
@@ -38,7 +39,7 @@ public class Main {
 
 		boardGenTest();
 
-		new InterfaceMainMenu();  //INTERFACE TEST
+		new FrameInterface();  //INTERFACE TEST
 	}
 
 	public static void boardGenTest(){
