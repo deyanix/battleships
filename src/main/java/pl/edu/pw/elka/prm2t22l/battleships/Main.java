@@ -1,6 +1,6 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
-import javax.swing.*;
+import pl.edu.pw.elka.prm2t22l.battleships.gui.InterfaceMainMenu;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
