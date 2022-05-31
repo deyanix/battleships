@@ -51,8 +51,8 @@ public class InterfaceMainMenu extends Canvas{
 
         Image icon = Toolkit.getDefaultToolkit().getImage("src\\main\\resources\\warship.png");
         fMainMenu.setIconImage(icon);
-
         fMainMenu.setSize(600,600);
+        fMainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         /*
         fMainMenu.add(bNewGame);
         fMainMenu.add(bLoadGame);
@@ -63,13 +63,5 @@ public class InterfaceMainMenu extends Canvas{
         fMainMenu.add(pButtonsPlace);
         fMainMenu.setLayout(null);
         fMainMenu.setVisible(true);
-
-        fMainMenu.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                System.exit(0);
-            }
-        });
-
     }
 }
