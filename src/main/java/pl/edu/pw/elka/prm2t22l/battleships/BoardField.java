@@ -11,10 +11,10 @@ public class BoardField extends JPanel {
 
     BoardField() {
         setPreferredSize(new Dimension(400, 400));
-        this.fieldSize = 50;
-        this.startPointX = 40;
-        this.startPointY = 40;
-        this.boardSize = 5;
+        this.fieldSize = 60;
+        this.startPointX = 60;
+        this.startPointY = 60;
+        this.boardSize = 4;
     }
 
     @Override
