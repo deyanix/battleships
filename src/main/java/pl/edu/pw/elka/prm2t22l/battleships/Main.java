@@ -41,14 +41,15 @@ public class Main {
 
 	public static void boardGenTest(){
 
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 1; i++) {
 			GameConfiguration newConf = new GameConfiguration(3, 3,
-					true, Level.EASY);
+					true, Level.VMIN);
 
 			BoardGenerator newBoard = new BoardGenerator(newConf);
-			newBoard.placeShips(new Ship[]{Ship.SHORT, Ship.SHORT,Ship.SHORT, Ship.MEDIUM, Ship.LONG, Ship.MEDIUM});
-
+			newBoard.smartPlaceShips(new Ship[]{Ship.SHORT, Ship.SHORT,Ship.SHORT, Ship.SHORT});
+			newBoard.render();
 			Board generatedBoard = newBoard.getConfiguration();
+			System.out.println("------ ------");
 			generatedBoard.display();
 		}
 	};
