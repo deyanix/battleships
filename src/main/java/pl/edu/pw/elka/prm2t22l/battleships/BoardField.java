@@ -39,8 +39,8 @@ public class BoardField extends JPanel implements MouseListener {
                 g2d.drawRect(startPointX + (fieldSize*j), startPointY + (fieldSize)*i, this.fieldSize, this.fieldSize);
             }
         }
-        //drawRectangles(g2d);
-        fillField(g2d);
+        drawRectangles(g2d);
+        //fillField(g2d);
     }
 
     private void fillField(Graphics2D g2d) {
@@ -64,9 +64,9 @@ public class BoardField extends JPanel implements MouseListener {
         for (Point point : positions) {
             x = (int) point.getX();
             y = (int) point.getY();
-            int multiplicatorX = x / this.fieldSize;
-            int multiplicatorY = y / this.fieldSize;
-            g2d.fillRect(startPointX + multiplicatorX*fieldSize, startPointY + multiplicatorY*fieldSize, this.fieldSize/2,this.fieldSize/2);
+            int multiplicatorX = (x - startPointX) / this.fieldSize;
+            int multiplicatorY = (y - startPointY) / this.fieldSize ;
+            g2d.fillRect(startPointX + fieldSize*multiplicatorX, startPointY + fieldSize*multiplicatorY, this.fieldSize, this.fieldSize);
         }
     }
 
