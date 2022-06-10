@@ -14,14 +14,16 @@ public class BoardField extends JPanel implements MouseListener {
     private final int boardSize;
     private int flag = 0;
     List<Point> positions;
+    Point position;
 
     BoardField() {
         addMouseListener(this);
+        this.position = null;
         this.positions = new ArrayList<>();
         setPreferredSize(new Dimension(1200, 1200));
-        this.fieldSize = 70;
+        this.fieldSize = 40;
         this.startPointX = 100;
-        this.startPointY = 40;
+        this.startPointY = 100;
         this.boardSize = 6;
     }
 
@@ -30,12 +32,30 @@ public class BoardField extends JPanel implements MouseListener {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
+        //g2d.drawRect(startPointX+ ((fieldSize/2)), startPointY + ((fieldSize/2)), this.fieldSize, this.fieldSize);
+
         for(int i=0; i<this.boardSize; i++) {
             for(int j=0; j<this.boardSize; j++) {
-                g2d.drawRect(startPointX+ ((fieldSize/2)*j), startPointY + ((fieldSize/2)*i), this.fieldSize, this.fieldSize);
+                g2d.drawRect(startPointX + (fieldSize*j), startPointY + (fieldSize)*i, this.fieldSize, this.fieldSize);
             }
         }
-        drawRectangles(g2d);
+        //drawRectangles(g2d);
+        fillField(g2d);
+    }
+
+    private void fillField(Graphics2D g2d) {
+        g2d.setColor(Color.blue);
+
+        if(position != null) {
+            int x = (int) position.getX();
+            int y = (int) position.getY();
+
+            int multiplicatorX = (x - startPointX) / this.fieldSize;
+            int multiplicatorY = (y - startPointY) / this.fieldSize ;
+            System.out.println(multiplicatorX);
+            System.out.println(multiplicatorY);
+            g2d.fillRect(startPointX + fieldSize*multiplicatorX, startPointY + fieldSize*multiplicatorY, this.fieldSize, this.fieldSize);
+        }
     }
 
     private void drawRectangles(Graphics2D g2d) {
@@ -44,22 +64,10 @@ public class BoardField extends JPanel implements MouseListener {
         for (Point point : positions) {
             x = (int) point.getX();
             y = (int) point.getY();
-            int multiplicatorX = getMultiplicatorX(x)/2;
-            int multiplicatorY = getMultiplicatorY(y)/2;
+            int multiplicatorX = x / this.fieldSize;
+            int multiplicatorY = y / this.fieldSize;
             g2d.fillRect(startPointX + multiplicatorX*fieldSize, startPointY + multiplicatorY*fieldSize, this.fieldSize/2,this.fieldSize/2);
         }
-    }
-
-    private int getMultiplicatorX(int x) {
-        if(x<startPointX) return 0;
-        int multipX = x / this.fieldSize;
-        return multipX;
-    }
-
-    private int getMultiplicatorY(int y) {
-        if(y<startPointX) return 0;
-        int multipY = y / this.fieldSize;
-        return multipY;
     }
 
     public static void main(String[] args) {
@@ -75,6 +83,7 @@ public class BoardField extends JPanel implements MouseListener {
         int x = e.getX();
         int y = e.getY();
         positions.add(new Point(x,y));
+        position = new Point(x,y);
         repaint();
     }
 
