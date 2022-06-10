@@ -64,10 +64,17 @@ public class BoardField extends JPanel implements MouseListener {
         for (Point point : positions) {
             x = (int) point.getX();
             y = (int) point.getY();
-            int multiplicatorX = (x - startPointX) / this.fieldSize;
-            int multiplicatorY = (y - startPointY) / this.fieldSize ;
-            g2d.fillRect(startPointX + fieldSize*multiplicatorX, startPointY + fieldSize*multiplicatorY, this.fieldSize, this.fieldSize);
+            if(isInBoard(x,y)) {
+                int multiplicatorX = (x - startPointX) / this.fieldSize;
+                int multiplicatorY = (y - startPointY) / this.fieldSize;
+                g2d.fillRect(startPointX + fieldSize * multiplicatorX, startPointY + fieldSize * multiplicatorY, this.fieldSize, this.fieldSize);
+            }
         }
+    }
+
+    private boolean isInBoard(int x, int y) {
+        if(x >= startPointX && y >= startPointY && x <= (fieldSize*boardSize) + startPointX && y<= (fieldSize*boardSize) + startPointY) return true;
+        return false;
     }
 
     public static void main(String[] args) {
