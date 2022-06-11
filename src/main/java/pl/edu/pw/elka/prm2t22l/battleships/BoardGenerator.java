@@ -1,5 +1,8 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
+import pl.edu.pw.elka.prm2t22l.battleships.board.Board;
+import pl.edu.pw.elka.prm2t22l.battleships.board.FieldState;
+
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -26,7 +29,7 @@ public class BoardGenerator {
         return confBoard;
     }
     private void makeClearBoard(){
-        confBoard = Board.createEmptyBoard(chosenConfiguration.getLevel().getWidth(),
+        confBoard = new Board(chosenConfiguration.getLevel().getWidth(),
                                            chosenConfiguration.getLevel().getHeight());
     }
 
@@ -92,7 +95,7 @@ public class BoardGenerator {
         outerloop:
         for (int j = startCheckX; j <= endCheckX; j++) {
             for (int k = startCheckY; k <= endCheckY; k++) {
-                if (confBoard.getFieldState(j, k) != (FieldState.EMPTY)) {
+                if (confBoard.getField(j, k).getState() != (FieldState.EMPTY)) {
                     canFit = false;
                     break outerloop;
                 }
@@ -101,10 +104,10 @@ public class BoardGenerator {
         if (canFit){
         for (int i = 0; i < ship.getLength(); i++) {
             if (isVertical){
-                confBoard.setFieldState(startFieldX, startFieldY+i, FieldState.BATTLESHIP);
+                confBoard.getField(startFieldX, startFieldY+i).setState( FieldState.BATTLESHIP);
             }
             else{
-                confBoard.setFieldState(startFieldX+i, startFieldY, FieldState.BATTLESHIP);
+                confBoard.getField(startFieldX+i, startFieldY).setState( FieldState.BATTLESHIP);
             }
         }}
         seed = seed+2;
