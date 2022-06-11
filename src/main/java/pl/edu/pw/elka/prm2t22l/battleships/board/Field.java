@@ -9,7 +9,7 @@ public class Field {
 	private FieldState state = FieldState.EMPTY;
 	private boolean immutable = false;
 
-	public Field(Board board, Location location) {
+	Field(Board board, Location location) {
 		this.board = board;
 		this.location = location;
 	}
