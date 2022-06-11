@@ -7,24 +7,21 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 
-public class BoardField extends JPanel implements MouseListener {
+public class BoardRenderer extends JPanel implements MouseListener {
     private final int fieldSize;
     private final int startPointX;
     private final int startPointY;
     private final int boardSize;
-    private int flag = 0;
     List<Point> positions;
-    Point position;
 
-    BoardField() {
+    BoardRenderer() {
         addMouseListener(this);
-        this.position = null;
         this.positions = new ArrayList<>();
         setPreferredSize(new Dimension(1200, 1200));
         this.fieldSize = 40;
         this.startPointX = 100;
         this.startPointY = 100;
-        this.boardSize = 6;
+        this.boardSize = 3;
     }
 
     @Override
@@ -43,21 +40,6 @@ public class BoardField extends JPanel implements MouseListener {
         //fillField(g2d);
     }
 
-    private void fillField(Graphics2D g2d) {
-        g2d.setColor(Color.blue);
-
-        if(position != null) {
-            int x = (int) position.getX();
-            int y = (int) position.getY();
-
-            int multiplicatorX = (x - startPointX) / this.fieldSize;
-            int multiplicatorY = (y - startPointY) / this.fieldSize ;
-            System.out.println(multiplicatorX);
-            System.out.println(multiplicatorY);
-            g2d.fillRect(startPointX + fieldSize*multiplicatorX, startPointY + fieldSize*multiplicatorY, this.fieldSize, this.fieldSize);
-        }
-    }
-
     private void drawRectangles(Graphics2D g2d) {
         int x, y;
         g2d.setColor(Color.blue);
@@ -73,13 +55,13 @@ public class BoardField extends JPanel implements MouseListener {
     }
 
     private boolean isInBoard(int x, int y) {
-        if(x >= startPointX && y >= startPointY && x <= (fieldSize*boardSize) + startPointX && y<= (fieldSize*boardSize) + startPointY) return true;
+        if(x > startPointX && y > startPointY && x < (fieldSize*boardSize) + startPointX && y< (fieldSize*boardSize) + startPointY) return true;
         return false;
     }
 
     public static void main(String[] args) {
         JFrame f = new JFrame();
-        f.add(new BoardField());
+        f.add(new BoardRenderer());
         f.setSize(400,400);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setVisible(true);
@@ -90,7 +72,6 @@ public class BoardField extends JPanel implements MouseListener {
         int x = e.getX();
         int y = e.getY();
         positions.add(new Point(x,y));
-        position = new Point(x,y);
         repaint();
     }
 
