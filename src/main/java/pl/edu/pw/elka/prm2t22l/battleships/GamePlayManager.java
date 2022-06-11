@@ -1,5 +1,10 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
+import pl.edu.pw.elka.prm2t22l.battleships.board.Board;
+import pl.edu.pw.elka.prm2t22l.battleships.board.Field;
+import pl.edu.pw.elka.prm2t22l.battleships.board.FieldState;
+import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Stack;
@@ -43,8 +48,9 @@ public class GamePlayManager {
 	}
 
 	public void turn(Location location, FieldState state) {
-		FieldState previousState = board.getFieldState(location);
-		board.setFieldState(location, state);
+		Field field = board.getField(location);
+		FieldState previousState = field.getState();
+		field.setState(state);
 		turns.push(new Turn(location, previousState, state));
 	}
 
@@ -58,7 +64,7 @@ public class GamePlayManager {
 		}
 
 		Turn lastTurn = turns.pop();
-		board.setFieldState(lastTurn.getLocation(), lastTurn.getPreviousState());
+		board.getField(lastTurn.getLocation()).setState(lastTurn.getPreviousState());
 		return true;
 	}
 

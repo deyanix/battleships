@@ -1,4 +1,4 @@
-package pl.edu.pw.elka.prm2t22l.battleships;
+package pl.edu.pw.elka.prm2t22l.battleships.entity;
 
 public class Location {
     private final int x;

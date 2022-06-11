@@ -1,21 +1,23 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
 import pl.edu.pw.elka.prm2t22l.battleships.gui.FrameInterface;
+import pl.edu.pw.elka.prm2t22l.battleships.board.Board;
+import pl.edu.pw.elka.prm2t22l.battleships.board.FieldState;
 import pl.edu.pw.elka.prm2t22l.battleships.gui.InterfaceMainMenu;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
-		Board board = Board.createEmptyBoard(3, 3);
-		board.setFieldState(0, 0, FieldState.EMPTY);
-		board.setFieldState(1, 0, FieldState.WATER);
-		board.setFieldState(2, 0, FieldState.BATTLESHIP);
-		board.setFieldState(0, 1, FieldState.EMPTY);
-		board.setFieldState(1, 1, FieldState.WATER);
-		board.setFieldState(2, 1, FieldState.BATTLESHIP);
-		board.setFieldState(0, 2, FieldState.BATTLESHIP);
-		board.setFieldState(1, 2, FieldState.EMPTY);
-		board.setFieldState(2, 2, FieldState.BATTLESHIP);
-
+		Board board = new Board(3, 3);
+		board.getField(0, 0).setState(FieldState.EMPTY);
+		board.getField(1, 0).setState(FieldState.WATER);
+		board.getField(2, 0).setState(FieldState.BATTLESHIP);
+		board.getField(0, 1).setState(FieldState.EMPTY);
+		board.getField(1, 1).setState(FieldState.WATER);
+		board.getField(2, 1).setState(FieldState.BATTLESHIP);
+		board.getField(0, 2).setState(FieldState.BATTLESHIP);
+		board.getField(1, 2).setState(FieldState.EMPTY);
+		board.getField(2, 2).setState(FieldState.BATTLESHIP);
+		board.display();
 
 		new Thread() {
 			@Override
