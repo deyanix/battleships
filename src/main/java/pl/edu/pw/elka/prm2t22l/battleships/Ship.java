@@ -9,5 +9,5 @@ public enum Ship {
     Ship(int length) {
         this.length = length;
     }
-    int getLength(){return length;}
+    public int getLength(){return length;}
 }
