@@ -14,7 +14,7 @@ public enum Ship {
     Ship(int length) {
         this.length = length;
     }
-    int getLength(){return length;}
+    public int getLength(){return length;}
     void setStart(int x, int y){
         placement = new Point(x, y);
     }

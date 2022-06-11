@@ -4,6 +4,9 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedList;
+import pl.edu.pw.elka.prm2t22l.battleships.board.Board;
+import pl.edu.pw.elka.prm2t22l.battleships.board.FieldState;
+
 import java.util.Random;
 
 public class BoardGenerator {
@@ -25,7 +28,7 @@ public class BoardGenerator {
         return configuration;
     }
     private void makeClearBoard(){
-        configuration = Board.createEmptyBoard(chosenConfiguration.getLevel().getWidth(),
+        configuration = new Board(chosenConfiguration.getLevel().getWidth(),
                                            chosenConfiguration.getLevel().getHeight());
     }
     public boolean smartPlaceShips(Ship[] ships){
@@ -121,7 +124,7 @@ public class BoardGenerator {
         outerloop:
         for (int j = startCheckX; j <= endCheckX; j++) {
             for (int k = startCheckY; k <= endCheckY; k++) {
-                if (moves.getFieldState(j, k) != 0) {
+                if (moves.getField(j, k).getState() != 0) {
                     canFit = false;
                     break outerloop;
                 }
@@ -132,10 +135,10 @@ public class BoardGenerator {
             ship.setStart(startFieldX, startFieldY);
             for (int i = 0; i < ship.getLength(); i++) {
                 if (isVertical){
-                    //configuration.setFieldState(startFieldX, startFieldY+i, FieldState.BATTLESHIP);
+                    //configuration.getField(startFieldX, startFieldY+i).setState( FieldState.BATTLESHIP);
                 }
                 else{
-                    //configuration.setFieldState(startFieldX+i, startFieldY, FieldState.BATTLESHIP);
+                    //configuration.getField(startFieldX+i, startFieldY).setState( FieldState.BATTLESHIP);
                 }
             }
         }
