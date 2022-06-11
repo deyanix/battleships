@@ -23,10 +23,10 @@ public class BoardRenderer {
         this.boardSize = 3;
     }
 
-    private void drawImage() {
+    protected void drawImage() {
         BufferedImage bufferedImage = new BufferedImage(200,200,BufferedImage.TYPE_INT_ARGB);
         Graphics g = bufferedImage.getGraphics();
-        renderBoard(g);
+        //renderBoard(g);
 
         try {
             File outputFile = new File("data/board_image.png");
