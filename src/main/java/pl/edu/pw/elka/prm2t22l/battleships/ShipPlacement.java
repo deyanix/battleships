@@ -1,5 +1,7 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
+import pl.edu.pw.elka.prm2t22l.battleships.board.Board;
+
 import java.awt.*;
 import java.util.LinkedList;
 

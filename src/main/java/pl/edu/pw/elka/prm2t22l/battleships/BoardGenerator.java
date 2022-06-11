@@ -124,7 +124,7 @@ public class BoardGenerator {
         outerloop:
         for (int j = startCheckX; j <= endCheckX; j++) {
             for (int k = startCheckY; k <= endCheckY; k++) {
-                if (moves.getField(j, k).getState() != 0) {
+                if (moves.getFieldState(j, k) != 0) {
                     canFit = false;
                     break outerloop;
                 }
@@ -149,7 +149,7 @@ public class BoardGenerator {
         for (int i = 0; i < configuration.getHeight(); i++) {
             for (int j = 0; j < configuration.getWidth(); j++) {
                 boolean isShip = (moves.getFieldState(i, j) == 1);
-                if (isShip) configuration.setFieldState(i, j, FieldState.BATTLESHIP);
+                if (isShip) configuration.getField(i, j).setState(FieldState.BATTLESHIP);
             }
         }
     }
