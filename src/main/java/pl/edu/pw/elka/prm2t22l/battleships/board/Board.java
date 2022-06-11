@@ -19,7 +19,7 @@ public class Board {
 		return IntStream.range(0, height)
 				.mapToObj(y -> IntStream.range(0, width)
 					.mapToObj(x -> new Field(this, x, y))
-					.toArray(Field[]::new))
+						.toArray(Field[]::new))
 				.toArray(Field[][]::new);
 	}
 

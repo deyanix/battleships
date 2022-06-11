@@ -13,20 +13,21 @@ public class BoardRenderer {
     private final int startPointX;
     private final int startPointY;
     private final int boardSize;
+    private final BufferedImage bufferedImage;
     List<Point> positions;
 
     BoardRenderer(List<Point> positions, int fieldSize, int boardSize, int startPointX, int startPointY) {
+        bufferedImage = new BufferedImage(200,200,BufferedImage.TYPE_INT_ARGB);
         this.positions = new ArrayList<>();
-        this.fieldSize = 40;
-        this.startPointX = 100;
-        this.startPointY = 100;
-        this.boardSize = 3;
+        this.fieldSize = fieldSize;
+        this.startPointX = startPointX;
+        this.startPointY = startPointY;
+        this.boardSize = boardSize;
     }
 
-    protected void drawImage() {
-        BufferedImage bufferedImage = new BufferedImage(200,200,BufferedImage.TYPE_INT_ARGB);
-        Graphics g = bufferedImage.getGraphics();
-        //renderBoard(g);
+    protected void saveImage() {
+        Graphics g = this.bufferedImage.getGraphics();
+        renderBoard(g);
 
         try {
             File outputFile = new File("data/board_image.png");
@@ -40,14 +41,14 @@ public class BoardRenderer {
         Graphics2D g2d = (Graphics2D) g;
 
         for(int i=0; i<this.boardSize; i++) {
-            for(int j=0; j<this.boardSize; j++) {
-                g2d.drawRect(startPointX + (fieldSize*j), startPointY + (fieldSize)*i, this.fieldSize, this.fieldSize);
+            for (int j = 0; j < this.boardSize; j++) {
+                g2d.drawRect(startPointX + (fieldSize * j), startPointY + (fieldSize) * i, this.fieldSize, this.fieldSize);
             }
         }
-        fillFields(g2d);
+        fillField(g2d);
     }
 
-    private void fillFields(Graphics2D g2d) {
+    private void fillField(Graphics2D g2d) {
         int x, y;
         g2d.setColor(Color.blue);
         for (Point point : positions) {
@@ -60,6 +61,7 @@ public class BoardRenderer {
             }
         }
     }
+
 
     private boolean isInBoard(int x, int y) {
         if(x > startPointX && y > startPointY && x < (fieldSize*boardSize) + startPointX && y< (fieldSize*boardSize) + startPointY) return true;

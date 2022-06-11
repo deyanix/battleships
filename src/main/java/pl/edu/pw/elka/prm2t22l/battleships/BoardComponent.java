@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoardComponent extends JPanel implements MouseListener {
-    private List<Point> positions;
+    private final List<Point> positions;
 
     BoardComponent() {
         addMouseListener(this);
