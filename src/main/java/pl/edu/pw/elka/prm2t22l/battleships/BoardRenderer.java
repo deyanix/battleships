@@ -1,5 +1,7 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
+import pl.edu.pw.elka.prm2t22l.battleships.board.Board;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -12,17 +14,20 @@ public class BoardRenderer {
     private final int fieldSize;
     private final int startPointX;
     private final int startPointY;
-    private final int boardSize;
+    private final int boardWidth;
+    private final int boardLength;
     private final BufferedImage bufferedImage;
     List<Point> positions;
 
-    BoardRenderer(List<Point> positions, int fieldSize, int boardSize, int startPointX, int startPointY) {
+    BoardRenderer(int startPointX, int startPointY, Board board) {
+        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         bufferedImage = new BufferedImage(200,200,BufferedImage.TYPE_INT_ARGB);
         this.positions = new ArrayList<>();
-        this.fieldSize = fieldSize;
+        this.fieldSize = (size.height + size.width)/20;
         this.startPointX = startPointX;
         this.startPointY = startPointY;
-        this.boardSize = boardSize;
+        this.boardWidth = board.getFields().length;
+        this.boardLength = board.getFields()[0].length;
     }
 
     protected void saveImage() {
@@ -40,12 +45,12 @@ public class BoardRenderer {
     protected void renderBoard(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
 
-        for(int i=0; i<this.boardSize; i++) {
-            for (int j = 0; j < this.boardSize; j++) {
+        for(int i=0; i<this.boardLength; i++) {
+            for (int j = 0; j < this.boardWidth; j++) {
                 g2d.drawRect(startPointX + (fieldSize * j), startPointY + (fieldSize) * i, this.fieldSize, this.fieldSize);
             }
         }
-        fillField(g2d);
+        //fillField(g2d);
     }
 
     private void fillField(Graphics2D g2d) {
@@ -64,7 +69,7 @@ public class BoardRenderer {
 
 
     private boolean isInBoard(int x, int y) {
-        if(x > startPointX && y > startPointY && x < (fieldSize*boardSize) + startPointX && y< (fieldSize*boardSize) + startPointY) return true;
+        if(x > startPointX && y > startPointY && x < (fieldSize*boardWidth) + startPointX && y< (fieldSize*boardLength) + startPointY) return true;
         return false;
     }
 }

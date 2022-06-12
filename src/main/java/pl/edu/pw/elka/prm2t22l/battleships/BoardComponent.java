@@ -1,5 +1,7 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
+import pl.edu.pw.elka.prm2t22l.battleships.board.Board;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -13,24 +15,24 @@ public class BoardComponent extends JPanel implements MouseListener {
     BoardComponent() {
         addMouseListener(this);
         this.positions = new ArrayList<>();
-        this.setVisible(true);
         setPreferredSize(new Dimension(1200, 1200));
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        BoardRenderer boardRenderer = new BoardRenderer(positions,40,5,100,100);
+        Board board = new Board(100,100);
+        BoardRenderer boardRenderer = new BoardRenderer(100,100,board);
         boardRenderer.renderBoard(g);
     }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame();
         frame.setSize(600,600);
-        frame.setVisible(true);
         frame.add(new BoardComponent());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
+        frame.setVisible(true);
     }
 
     @Override
