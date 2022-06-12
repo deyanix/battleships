@@ -12,7 +12,8 @@ public class FrameInterface extends JFrame {
         setResizable(false);
         setSize(600,600);
         try {
-            add(new InterfaceMainMenu());  //PanelMainManu to nazwa klasy zawierającej panel main menu
+            //add(new InterfaceMainMenu());  //PanelMainManu to nazwa klasy zawierającej panel main menu
+            add(new InterfaceConfigWindow());
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -22,6 +23,7 @@ public class FrameInterface extends JFrame {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+
         setLayout(null);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);

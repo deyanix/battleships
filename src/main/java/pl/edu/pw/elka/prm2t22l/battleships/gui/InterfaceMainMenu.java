@@ -40,6 +40,15 @@ public class InterfaceMainMenu extends JPanel{
         bScoreboard.setFocusable(false);
         bExit.setFocusable(false);
 
+//------NEW GAME BUTTON ACTION----------------------------------
+        bNewGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+
+            }
+        });
+
 //------EXIT BUTTON ACTION--------------------------------------
         bExit.addActionListener(new ActionListener() {
             @Override
@@ -53,20 +62,11 @@ public class InterfaceMainMenu extends JPanel{
         pButtonsPlace.add(bScoreboard);
         pButtonsPlace.add(bExit);
 
-
-
-
         setSize(600,600);
-        /*
-        fMainMenu.add(bNewGame);
-        fMainMenu.add(bLoadGame);
-        fMainMenu.add(bScoreboard);
-        fMainMenu.add(bExit);
-         */
+
         add(pLogoPlace);
         add(pButtonsPlace);
         setLayout(null);
         setVisible(true);
-
     }
 }
