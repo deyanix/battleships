@@ -31,7 +31,7 @@ public class InterfaceConfigWindow extends JPanel {
 
 //------PANEL POZIOMY TRUDNOŚCI-----------------------------------
         JPanel pDifficultyConfig = new JPanel();
-        pDifficultyConfig.setBounds(0,200,200,200);
+        pDifficultyConfig.setBounds(0,200,200,240);
         pDifficultyConfig.setLayout(null);
 
         //pDifficultyConfig.setBackground(Color.BLUE);
@@ -91,11 +91,15 @@ public class InterfaceConfigWindow extends JPanel {
             }
         });
 
+        JTextField tfSeedPlace = new JTextField("Seed Place:", 20);
+        tfSeedPlace.setBounds(30,170,150,20);
+
         pDifficultyConfig.add(lSelectDiffLvl);
         pDifficultyConfig.add(rbDifficultyEasy);
         pDifficultyConfig.add(rbDifficultyNormal);
         pDifficultyConfig.add(rbDifficultyHard);
         pDifficultyConfig.add(rbCustomMode);
+        pDifficultyConfig.add(tfSeedPlace);
 
         ButtonGroup group = new ButtonGroup();
         group.add(rbDifficultyEasy);
@@ -109,32 +113,139 @@ public class InterfaceConfigWindow extends JPanel {
         JPanel pCustomConfig = new JPanel();
         pCustomConfig.setBounds(200,200,400,400);
         pCustomConfig.setLayout(null);
+        //pCustomConfig.setBackground(Color.green);
 
-        pCustomConfig.setBackground(Color.green);
+        JLabel lWidthX = new JLabel("Width of the Board:");
+        JLabel lHightY = new JLabel("Hight of the Board:");
+        JLabel lVisibleFieldsNum = new JLabel("Visible Filds:");
+        JLabel lSkipsNum = new JLabel("Possible Skips:");
+        JLabel lWithdrawalsNum = new JLabel("Possible Withdrawals:");
 
-        //JLabel lTest = new JLabel("testets");
-        //lTest.setBounds(0,0,20,20);
-        //pCustomConfig.add(lTest);
+        //SZEROKOŚĆ PLANSZY (OX)
+        JSlider sWidthX = new JSlider(JSlider.HORIZONTAL,2,10,6);
+        sWidthX.setMinorTickSpacing(1);
+        sWidthX.setMajorTickSpacing(2);
+        sWidthX.setPaintTicks(true);
+        sWidthX.setPaintLabels(true);
+        sWidthX.setFocusable(false);
+        sWidthX.setBounds(41,15,130,40);
+        lWidthX.setBounds(43,0,128,15);
+        pCustomConfig.add(sWidthX);
+        //WYSOKOŚĆ PLANSZY (OY)
+        JSlider sHightY = new JSlider(JSlider.HORIZONTAL,2,10,6);
+        sHightY.setMinorTickSpacing(1);
+        sHightY.setMajorTickSpacing(2);
+        sHightY.setPaintTicks(true);
+        sHightY.setPaintLabels(true);
+        sHightY.setFocusable(false);
+        sHightY.setBounds(191,15,130,40);
+        lHightY.setBounds(193,0,128,15);
+        pCustomConfig.add(sHightY);
+        //LICZBA WIDOCZNYCH NA POCZĄTKU PÓL
+        JSlider sVisibleFieldsNum = new JSlider(JSlider.HORIZONTAL,0,10,2);
+        sVisibleFieldsNum.setMinorTickSpacing(1);
+        sVisibleFieldsNum.setMajorTickSpacing(2);
+        sVisibleFieldsNum.setPaintTicks(true);
+        sVisibleFieldsNum.setPaintLabels(true);
+        sVisibleFieldsNum.setFocusable(false);
+        sVisibleFieldsNum.setBounds(20,105,100,40);
+        lVisibleFieldsNum.setBounds(22,90,98,15);
+        pCustomConfig.add(sVisibleFieldsNum);
+        //LICZBA DOZWOLONYCH POMINIEC
+        JSlider sSkipsNum = new JSlider(JSlider.HORIZONTAL,0,10,2);
+        sSkipsNum.setMinorTickSpacing(1);
+        sSkipsNum.setMajorTickSpacing(2);
+        sSkipsNum.setPaintTicks(true);
+        sSkipsNum.setPaintLabels(true);
+        sSkipsNum.setFocusable(false);
+        sSkipsNum.setBounds(130,105,100,40);
+        lSkipsNum.setBounds(132,90,98,15);
+        pCustomConfig.add(sSkipsNum);
+        //LICZBA DOZWOLONYCH COFNIEC
+        JSlider sWithdrawalsNum = new JSlider(JSlider.HORIZONTAL,0,10,2);
+        sWithdrawalsNum.setMinorTickSpacing(1);
+        sWithdrawalsNum.setMajorTickSpacing(2);
+        sWithdrawalsNum.setPaintTicks(true);
+        sWithdrawalsNum.setPaintLabels(true);
+        sWithdrawalsNum.setFocusable(false);
+        sWithdrawalsNum.setBounds(240,105,100,40);
+        lWithdrawalsNum.setBounds(242,90,120,15);
+        pCustomConfig.add(sWithdrawalsNum);
 
-        pCustomConfig.setVisible(customSettingsEnabler);  //wcześniej w tej linijce bylo: pCustomConfig.setVisible(customSettingsEnabler);
+        //LICZBA STATKÓW I
+        JSlider sSmallShips = new JSlider(JSlider.HORIZONTAL,0,10,4);
+        sSmallShips.setMinorTickSpacing(1);
+        sSmallShips.setMajorTickSpacing(2);
+        sSmallShips.setPaintTicks(true);
+        sSmallShips.setPaintLabels(true);
+        sSmallShips.setFocusable(false);
+        sSmallShips.setBounds(20,300,100,40);
+        pCustomConfig.add(sSmallShips);
+        //LICZBA STATKÓW II
+        JSlider sMediumShips = new JSlider(JSlider.HORIZONTAL,0,10,3);
+        sMediumShips.setMinorTickSpacing(1);
+        sMediumShips.setMajorTickSpacing(2);
+        sMediumShips.setPaintTicks(true);
+        sMediumShips.setPaintLabels(true);
+        sMediumShips.setFocusable(false);
+        sMediumShips.setBounds(130,300,100,40);
+        pCustomConfig.add(sMediumShips);
+        //LICZBA STATKÓW III
+        JSlider sLargeShips = new JSlider(JSlider.HORIZONTAL,0,10,2);
+        sLargeShips.setMinorTickSpacing(1);
+        sLargeShips.setMajorTickSpacing(2);
+        sLargeShips.setPaintTicks(true);
+        sLargeShips.setPaintLabels(true);
+        sLargeShips.setFocusable(false);
+        sLargeShips.setBounds(240,300,100,40);
+        pCustomConfig.add(sLargeShips);
+
+        try {
+            BufferedImage iLogo1 = ImageIO.read(new File("src\\main\\resources\\Ship3.png"));
+            JLabel lShip1 = new JLabel(new ImageIcon(iLogo1));
+            lShip1.setBounds(55,260,50,40);
+            pCustomConfig.add(lShip1);
+        } catch (IOException e){}
+        try {
+            BufferedImage iLogo2 = ImageIO.read(new File("src\\main\\resources\\Ship3.png"));
+            JLabel lShip2 = new JLabel(new ImageIcon(iLogo2));
+            lShip2.setBounds(155,215,50,125);
+            pCustomConfig.add(lShip2);
+        } catch (IOException e){}
+        try {
+            BufferedImage iLogo3 = ImageIO.read(new File("src\\main\\resources\\Ship3.png"));
+            JLabel lShip3 = new JLabel(new ImageIcon(iLogo3));
+            lShip3.setBounds(265,170,50,130);
+            pCustomConfig.add(lShip3);
+        } catch (IOException e){}
+
+        pCustomConfig.add(lWidthX);
+        pCustomConfig.add(lHightY);
+        pCustomConfig.add(lVisibleFieldsNum);
+        pCustomConfig.add(lSkipsNum);
+        pCustomConfig.add(lWithdrawalsNum);
+
+
+
+        pCustomConfig.setVisible(true);  //wcześniej w tej linijce bylo: pCustomConfig.setVisible(customSettingsEnabler);
 //------PANEL Z PRZYCISKAMI---------------------------------------
         JPanel pButtonsPlace = new JPanel();
-        pButtonsPlace.setBounds(0,400,200,200);
+        pButtonsPlace.setBounds(0,440,200,160);
         pButtonsPlace.setLayout(null);
 
         //pButtonsPlace.setBackground(Color.cyan);
 
         JButton bSave = new JButton("Save");
         bSave.setFocusable(false);
-        bSave.setBounds(30,40,67,40);
+        bSave.setBounds(30,0,67,40);
 
         JButton bBack = new JButton("Back");
         bBack.setFocusable(false);
-        bBack.setBounds(103,40,67,40);
+        bBack.setBounds(103,0,67,40);
 
         JButton bPlay = new JButton("Play");
         bPlay.setFocusable(false);
-        bPlay.setBounds(30,85,140,40);
+        bPlay.setBounds(30,45,140,40);
 
         pButtonsPlace.add(bSave);
         pButtonsPlace.add(bBack);
