@@ -203,7 +203,7 @@ public class InterfaceConfigWindow extends JPanel {
         try {
             BufferedImage iLogo1 = ImageIO.read(new File("src\\main\\resources\\Ship3.png"));
             JLabel lShip1 = new JLabel(new ImageIcon(iLogo1));
-            lShip1.setBounds(55,260,50,40);
+            lShip1.setBounds(45,260,50,40);
             pCustomConfig.add(lShip1);
         } catch (IOException e){}
         try {
