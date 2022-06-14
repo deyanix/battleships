@@ -23,7 +23,10 @@ public class BoardComponent extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                getBoardRenderer().mapToField(e.getPoint()).setState(FieldState.BATTLESHIP);
+                Field field = getBoardRenderer().mapToField(e.getPoint());
+                if (field != null) {
+                    field.setState(FieldState.BATTLESHIP);
+                }
                 repaint();
             }
         });

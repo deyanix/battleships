@@ -36,8 +36,15 @@ public class Board implements Iterable<Field> {
 		return fields;
 	}
 
+	public boolean hasField(int x, int y) {
+		return x >= 0 && x < getWidth() && y >= 0 && y < getHeight();
+	}
+
 	public Field getField(int x, int y) {
-		return fields[y][x];
+		if (hasField(x, y)) {
+			return fields[y][x];
+		}
+		return null;
 	}
 	public Field getField(Location location) {
 		return getField(location.getX(), location.getY());
