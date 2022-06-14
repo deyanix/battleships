@@ -44,7 +44,7 @@ public class InterfaceMainMenu extends JPanel{
         bNewGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
+                //setVisible(false);
 
             }
         });

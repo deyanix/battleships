@@ -12,6 +12,9 @@ import java.io.IOException;
 
 public class InterfaceConfigWindow extends JPanel {
 
+    JLayeredPane lpConfigLayeredPane;
+    JPanel pCustomConfig;
+
     public int diggicultyLevel = 2;         //będzie zapisywać poziom trudności (od 0 do 4, gdzie 0 to custom)
     public boolean focusability = true; //zmienia możliwość zaznaczenia RadioButtonów
     public boolean customSettingsEnabler = false;
@@ -47,7 +50,7 @@ public class InterfaceConfigWindow extends JPanel {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 diggicultyLevel = 1;
-                customSettingsEnabler = false;
+                pCustomConfig.setVisible(false);
             }
         });
 
@@ -60,7 +63,7 @@ public class InterfaceConfigWindow extends JPanel {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 diggicultyLevel = 2;
-                customSettingsEnabler = false;
+                pCustomConfig.setVisible(false);
             }
         });
 
@@ -72,8 +75,7 @@ public class InterfaceConfigWindow extends JPanel {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 diggicultyLevel = 3;
-                customSettingsEnabler = false;
-                System.out.println(customSettingsEnabler);
+                pCustomConfig.setVisible(false);
             }
         });
 
@@ -85,9 +87,12 @@ public class InterfaceConfigWindow extends JPanel {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 diggicultyLevel = 0;
-                customSettingsEnabler = true;
-
-                System.out.println(customSettingsEnabler);
+                //customSettingsEnabler = true;
+                //System.out.println(customSettingsEnabler);
+                JComponent source = (JComponent) e.getSource();
+                //set the  popup label location at center of the source component
+                pCustomConfig.setLocation(new Point(200,200));
+                pCustomConfig.setVisible(true);
             }
         });
 
@@ -110,7 +115,7 @@ public class InterfaceConfigWindow extends JPanel {
         pDifficultyConfig.setVisible(true);
 
 //------PANEL KASTOMIZACJI POZIOMU TRUDNOŚCI----------------------
-        JPanel pCustomConfig = new JPanel();
+        pCustomConfig = new JPanel();
         pCustomConfig.setBounds(200,200,400,400);
         pCustomConfig.setLayout(null);
         //pCustomConfig.setBackground(Color.green);
@@ -120,6 +125,7 @@ public class InterfaceConfigWindow extends JPanel {
         JLabel lVisibleFieldsNum = new JLabel("Visible Filds:");
         JLabel lSkipsNum = new JLabel("Possible Skips:");
         JLabel lWithdrawalsNum = new JLabel("Possible Withdrawals:");
+        JLabel lNumberOfShips = new JLabel("Number of Ships:");
 
         //SZEROKOŚĆ PLANSZY (OX)
         JSlider sWidthX = new JSlider(JSlider.HORIZONTAL,2,10,6);
@@ -180,6 +186,7 @@ public class InterfaceConfigWindow extends JPanel {
         sSmallShips.setPaintLabels(true);
         sSmallShips.setFocusable(false);
         sSmallShips.setBounds(20,300,100,40);
+        lNumberOfShips.setBounds(20,150,100,40);
         pCustomConfig.add(sSmallShips);
         //LICZBA STATKÓW II
         JSlider sMediumShips = new JSlider(JSlider.HORIZONTAL,0,10,3);
@@ -224,10 +231,11 @@ public class InterfaceConfigWindow extends JPanel {
         pCustomConfig.add(lVisibleFieldsNum);
         pCustomConfig.add(lSkipsNum);
         pCustomConfig.add(lWithdrawalsNum);
+        pCustomConfig.add(lNumberOfShips);
 
 
 
-        pCustomConfig.setVisible(true);  //wcześniej w tej linijce bylo: pCustomConfig.setVisible(customSettingsEnabler);
+        pCustomConfig.setVisible(false);  //wcześniej w tej linijce bylo: pCustomConfig.setVisible(customSettingsEnabler);
 //------PANEL Z PRZYCISKAMI---------------------------------------
         JPanel pButtonsPlace = new JPanel();
         pButtonsPlace.setBounds(0,440,200,160);
@@ -252,6 +260,16 @@ public class InterfaceConfigWindow extends JPanel {
         pButtonsPlace.add(bPlay);
 
         pButtonsPlace.setVisible(true);
+//------PUSTY PANEL ("ZAKRYWAJĄCY CONFIG")------------------------
+        JPanel pBlankPanel = new JPanel();
+        pBlankPanel.setBounds(200,200,400,400);
+        pBlankPanel.setBackground(Color.cyan);
+        pBlankPanel.setVisible(false);
+//------LAYERED PANE----------------------------------------------
+        lpConfigLayeredPane = new JLayeredPane();
+        lpConfigLayeredPane.add(pBlankPanel, JLayeredPane.DEFAULT_LAYER);
+        lpConfigLayeredPane.add(pCustomConfig, JLayeredPane.POPUP_LAYER);
+
 //----------------------------------------------------------------
         setSize(600,600);
         setLayout(null);
