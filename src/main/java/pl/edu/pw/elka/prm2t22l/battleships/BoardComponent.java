@@ -23,9 +23,9 @@ public class BoardComponent extends JPanel implements MouseListener {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Board board = new Board(100,100);
-        BoardRenderer boardRenderer = new BoardRenderer(100,100,board);
-        boardRenderer.renderBoard(g);
+        //Board board = new Board(100,100);
+        //BoardRenderer boardRenderer = new BoardRenderer(100,100,board);
+        //boardRenderer.renderBoard(g);
     }
 
     public static void main(String[] args) {

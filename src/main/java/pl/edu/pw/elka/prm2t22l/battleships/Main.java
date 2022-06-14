@@ -4,6 +4,8 @@ import pl.edu.pw.elka.prm2t22l.battleships.board.Board;
 import pl.edu.pw.elka.prm2t22l.battleships.board.FieldState;
 import pl.edu.pw.elka.prm2t22l.battleships.gui.InterfaceMainMenu;
 
+import java.io.File;
+
 public class Main {
 	public static void main(String[] args) throws Exception {
 		Board board = new Board(3, 3);
@@ -16,31 +18,9 @@ public class Main {
 		board.getField(0, 2).setState(FieldState.BATTLESHIP);
 		board.getField(1, 2).setState(FieldState.EMPTY);
 		board.getField(2, 2).setState(FieldState.BATTLESHIP);
-		board.display();
 
-		new Thread() {
-			@Override
-			public void run() {
-				try {
-					GamePlayManager manager = new GamePlayManager(board);
-					manager.start();
-					Thread.sleep(2000);
-					System.out.println(manager.getPassedTime());
-					System.out.println(manager.getCurrentTime());
-					manager.pause();
-					manager.start();
-					Thread.sleep(2000);
-					System.out.println(manager.getPassedTime());
-					System.out.println(manager.getCurrentTime());
-				} catch (InterruptedException e) {
-					throw new RuntimeException(e);
-				}
-			}
-		}.start();
-
-		boardGenTest();
-
-		new InterfaceMainMenu();  //INTERFACE TEST
+		BoardRenderer boardRenderer = new BoardRenderer(board);
+		boardRenderer.saveImage(200,200,new File("data/plansza.png"));
 	}
 
 	public static void boardGenTest(){

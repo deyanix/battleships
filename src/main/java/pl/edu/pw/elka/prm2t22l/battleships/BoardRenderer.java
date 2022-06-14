@@ -3,6 +3,7 @@ package pl.edu.pw.elka.prm2t22l.battleships;
 import pl.edu.pw.elka.prm2t22l.battleships.board.Board;
 import pl.edu.pw.elka.prm2t22l.battleships.board.Field;
 import pl.edu.pw.elka.prm2t22l.battleships.board.FieldState;
+import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -10,70 +11,102 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.IntStream;
 import javax.imageio.ImageIO;
 
 public class BoardRenderer {
-    private final int fieldSize;
-    private final int startPointX;
-    private final int startPointY;
-    private final int boardWidth;
-    private final int boardHeight;
-    private final Field[][] fields;
-    private final BufferedImage bufferedImage;
-    List<Point> positions;
+    private static final int PADDING = 60;
+    private static final float FONT_SIZE = 50;
+    private static final int PADDING_TEXT = 60;
+    private final Board board;
 
-    BoardRenderer(int startPointX, int startPointY, Board board) {
-        bufferedImage = new BufferedImage(200,200,BufferedImage.TYPE_INT_ARGB);
-        this.positions = new ArrayList<>();
-        this.fieldSize = 40; // Trzeba jakoś ustawić, żeby rozmiar pola się dopasowywał do rozmiaru planszy
-        this.startPointX = startPointX;
-        this.startPointY = startPointY;
-        this.boardWidth = board.getWidth();
-        this.boardHeight = board.getHeight();
-        this.fields = board.getFields();
+    BoardRenderer(Board board) {
+        this.board = board;
     }
 
-    protected void saveImage() {
-        Graphics g = this.bufferedImage.getGraphics();
-        renderBoard(g);
-
-        try {
-            File outputFile = new File("data/board_image.png");
-            ImageIO.write(bufferedImage, "png", outputFile);
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
+    protected void saveImage(int width, int height, File file) throws IOException {
+        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics g = bufferedImage.getGraphics();
+        renderBoard(width, height, g);
+        ImageIO.write(bufferedImage, "png", file);
     }
 
-    protected void renderBoard(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
 
-        for(int i=0; i<this.boardHeight; i++) {
-            for (int j = 0; j < this.boardWidth; j++) {
-                g2d.drawRect(startPointX + (fieldSize * j), startPointY + (fieldSize) * i, this.fieldSize, this.fieldSize);
-                fields[j][i].setState(FieldState.EMPTY);
-            }
-        }
-        //fillField(g2d);
+    protected void renderBoard(int width, int height, Graphics g) {
+        Graphics2D g2d = (Graphics2D) g; // TODO: Usunąć 2D
+        int fieldSize = calculateFieldSize(width, height);
+        fillField(g2d,fieldSize);
+        drawSkeleton(g2d,fieldSize);
+        drawLabels(g,fieldSize);
     }
 
-    private void fillField(Graphics2D g2d) {
-        int x, y;
-        g2d.setColor(Color.blue);
-        for (Point point : positions) {
-            x = (int) point.getX();
-            y = (int) point.getY();
-            if(isInBoard(x,y)) {
-                int multiplicatorX = (x - startPointX) / this.fieldSize;
-                int multiplicatorY = (y - startPointY) / this.fieldSize;
-                g2d.fillRect(startPointX + fieldSize * multiplicatorX, startPointY + fieldSize * multiplicatorY, this.fieldSize, this.fieldSize);
-                fields[multiplicatorX][multiplicatorY].setState(FieldState.WATER);
+    private void drawSkeleton(Graphics2D g2d, int fieldSize) {
+        g2d.setColor(Color.BLACK);
+        for(int y=0; y<this.board.getHeight(); y++) {
+            for (int x = 0; x < this.board.getWidth(); x++) {
+                g2d.drawRect(PADDING + (fieldSize * x), PADDING + (fieldSize) * y, fieldSize, fieldSize);
             }
         }
     }
 
-    private boolean isInBoard(int x, int y) {
-        if(x > startPointX && y > startPointY && x < (fieldSize*boardWidth) + startPointX && y< (fieldSize*boardHeight) + startPointY) return true;
-        return false;
+    private int calculateFieldSize(int width, int height) {
+        int fieldWidth = (width - PADDING)/ board.getWidth();
+        int fieldHeight = (height - PADDING)/ board.getHeight();
+        return Math.min(fieldWidth,fieldHeight);
+    }
+
+    private void fillField(Graphics2D g2d, int fieldSize) {
+        for(Field field : board) {
+            Point point = mapToImagePoint(field.getLocation(), fieldSize);
+            if(field.getState() == FieldState.WATER) {
+                g2d.setColor(Color.BLUE);
+                g2d.fillRect((int) point.getX(), (int) point.getY(), fieldSize, fieldSize);
+            } else if(field.getState() == FieldState.BATTLESHIP) {
+                g2d.setColor(Color.BLACK);
+                g2d.fillRect((int) point.getX(), (int) point.getY(), fieldSize, fieldSize);
+            }
+        }
+    }
+
+    private int getShipsInRow(int row) {
+        return (int) IntStream.range(0, board.getHeight())
+                .mapToObj(x -> new Location(x, row))
+                .map(board::getField)
+                .map(Field::getState)
+                .filter(FieldState.BATTLESHIP::equals)
+                .count();
+    }
+
+    private int getShipsInColumn(int column) {
+        return (int) IntStream.range(0, board.getWidth())
+                .mapToObj(y -> new Location(column,y))
+                .map(board::getField)
+                .map(Field::getState)
+                .filter(FieldState.BATTLESHIP::equals)
+                .count();
+    }
+
+
+
+    private void drawLabels(Graphics g, int fieldSize) {
+        g.setColor(Color.BLACK);
+        g.setFont(g.getFont().deriveFont(FONT_SIZE));
+        for(int x=0;x< board.getWidth();x++) {
+            int ships = getShipsInColumn(x);
+            g.drawString(String.valueOf(ships),PADDING + fieldSize*x, PADDING_TEXT);
+        }
+        for(int y=0; y< board.getHeight(); y++) {
+            int ships = getShipsInRow(y);
+            g.drawString(String.valueOf(ships),PADDING_TEXT/2, PADDING*2 + fieldSize*y);
+        }
+    }
+
+    private Point mapToImagePoint(int x, int y, int fieldSize) {
+        return new Point(PADDING + (fieldSize * x), PADDING + (fieldSize * y));
+    }
+
+    private Point mapToImagePoint(Location location, int fieldSize) {
+        return mapToImagePoint(location.getX(), location.getY(),fieldSize);
     }
 }
