@@ -4,7 +4,10 @@ import pl.edu.pw.elka.prm2t22l.battleships.board.Board;
 import pl.edu.pw.elka.prm2t22l.battleships.board.FieldState;
 import pl.edu.pw.elka.prm2t22l.battleships.gui.InterfaceMainMenu;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
+import java.util.concurrent.Flow;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
@@ -19,8 +22,12 @@ public class Main {
 		board.getField(1, 2).setState(FieldState.EMPTY);
 		board.getField(2, 2).setState(FieldState.BATTLESHIP);
 
-		BoardRenderer boardRenderer = new BoardRenderer(board);
-		boardRenderer.saveImage(200,200,new File("data/plansza.png"));
+
+		JFrame frame = new JFrame();
+		frame.setSize(600,600);
+		frame.setContentPane(new BoardComponent(board));
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
 	}
 
 	public static void boardGenTest(){

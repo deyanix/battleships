@@ -6,62 +6,33 @@ import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoardComponent extends JPanel implements MouseListener {
-    private final List<Field> positions;
+public class BoardComponent extends JPanel {
+    private final Board board;
 
-    BoardComponent() {
-        addMouseListener(this);
-        this.positions = new ArrayList<>();
-        setPreferredSize(new Dimension(1200, 1200));
+    public BoardComponent(Board board) {
+        this.board = board;
+
+        setSize(new Dimension(1200, 1200));
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                System.out.println(getBoardRenderer().mapToBoardLocation(e.getPoint()));
+            }
+        });
     }
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Board board = new Board(100,100);
-        //BoardRenderer boardRenderer = new BoardRenderer(100,100,board);
-        //boardRenderer.renderBoard(g);
+        getBoardRenderer().renderBoard(g);
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.setSize(600,600);
-        frame.add(new BoardComponent());
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(null);
-        frame.setVisible(true);
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        int x = e.getX();
-        int y = e.getY();
-        //?
-        repaint();
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
+    private BoardRenderer getBoardRenderer() {
+        return new BoardRenderer(board, getWidth(), getHeight());
     }
 }
