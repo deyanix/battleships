@@ -1,6 +1,8 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
 import pl.edu.pw.elka.prm2t22l.battleships.board.Board;
+import pl.edu.pw.elka.prm2t22l.battleships.board.Field;
+import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoardComponent extends JPanel implements MouseListener {
-    private final List<Point> positions;
+    private final List<Field> positions;
 
     BoardComponent() {
         addMouseListener(this);
@@ -39,7 +41,7 @@ public class BoardComponent extends JPanel implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
-        positions.add(new Point(x,y));
+        //?
         repaint();
     }
 
