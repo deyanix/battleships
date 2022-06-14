@@ -2,6 +2,7 @@ package pl.edu.pw.elka.prm2t22l.battleships;
 
 import pl.edu.pw.elka.prm2t22l.battleships.board.Board;
 import pl.edu.pw.elka.prm2t22l.battleships.board.Field;
+import pl.edu.pw.elka.prm2t22l.battleships.board.FieldState;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
 
 import javax.swing.*;
@@ -22,13 +23,15 @@ public class BoardComponent extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                System.out.println(getBoardRenderer().mapToBoardLocation(e.getPoint()));
+                getBoardRenderer().mapToField(e.getPoint()).setState(FieldState.BATTLESHIP);
+                repaint();
             }
         });
     }
 
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         getBoardRenderer().renderBoard(g);
     }
 

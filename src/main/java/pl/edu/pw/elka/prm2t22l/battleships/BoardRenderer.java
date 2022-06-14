@@ -88,17 +88,14 @@ public class BoardRenderer {
         return mapToImagePoint(location.getX(), location.getY());
     }
 
-    public Location mapToBoardLocation(double x, double y) {
+    public Field mapToField(double x, double y) {
         int locX = (int) (x / fieldSize) - 1;
         int locY = (int) (y / fieldSize) - 1;
-        if (locX >= 0 && locX < board.getWidth() && locY >= 0 && locY < board.getHeight()) {
-            return new Location(locX, locY);
-        }
-        return null;
+        return board.getField(locX, locY);
     }
 
-    public Location mapToBoardLocation(Point point) {
-        return mapToBoardLocation(point.getX(), point.getY());
+    public Field mapToField(Point point) {
+        return mapToField(point.getX(), point.getY());
     }
 
     private int calculateFieldSize() {
@@ -118,7 +115,7 @@ public class BoardRenderer {
 
     private int getShipsInColumn(int column) {
         return (int) IntStream.range(0, board.getWidth())
-                .mapToObj(y -> new Location(column,y))
+                .mapToObj(y -> new Location(column, y))
                 .map(board::getField)
                 .map(Field::getState)
                 .filter(FieldState.BATTLESHIP::equals)
