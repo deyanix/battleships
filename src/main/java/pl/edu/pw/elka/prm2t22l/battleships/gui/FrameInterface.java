@@ -6,10 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class FrameInterface extends JFrame implements ActionListener {
-
-    private InterfaceMainMenu mainMenu;
-    private InterfaceConfigWindow configWindow;
-
     public FrameInterface() {
 
         Image icon = Toolkit.getDefaultToolkit().getImage("src\\main\\resources\\warship.png");
@@ -17,34 +13,7 @@ public class FrameInterface extends JFrame implements ActionListener {
         setTitle("BATTLESHIPS");
         setResizable(false);
         setSize(600,600);
-        try {
-
-            mainMenu=new InterfaceMainMenu();
-            mainMenu.addActionListener(this);
-            setContentPane(mainMenu);
-            configWindow=new InterfaceConfigWindow();
-            configWindow.addActionListener(this);
-
-            //setContentPane(new InterfaceMainMenu());  //PanelMainManu to nazwa klasy zawierającej panel main menu
-            //setContentPane(new InterfaceConfigWindow());
-/*
-            cPanelsContainer = getContentPane();
-            clMainCardLayout = new CardLayout();
-            cPanelsContainer.setLayout(clMainCardLayout);
-
-            cPanelsContainer.add(new InterfaceMainMenu());
-            cPanelsContainer.add(new InterfaceConfigWindow());
-*/
-
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        changePanel(1);
 
         setLayout(null);
         setVisible(true);
@@ -55,15 +24,23 @@ public class FrameInterface extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("ChangePanel")) {
             ChangePanelEvent changePanelEvent = (ChangePanelEvent) e;
-            try {
-                switch (changePanelEvent.getTarget()) {
-                    case 1: setContentPane(new InterfaceMainMenu()); break;
-                    case 2: setContentPane(new InterfaceConfigWindow()); break;
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-
+            changePanel(changePanelEvent.getTarget());
         }
+    }
+
+    private void changePanel(int target) {
+        try {
+            switch (target) {
+                case 1: setFramePanel(new InterfaceMainMenu()); break;
+                case 2: setFramePanel(new InterfaceConfigWindow()); break;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void setFramePanel(FramePanel panel) {
+        panel.addActionListener(this);
+        setContentPane(panel);
     }
 }
