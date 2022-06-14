@@ -257,6 +257,12 @@ public class InterfaceConfigWindow extends FramePanel {
         JButton bPlay = new JButton("Play");
         bPlay.setFocusable(false);
         bPlay.setBounds(30,45,140,40);
+        bPlay.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                changePanel(3);
+            }
+        });
 
         pButtonsPlace.add(bSave);
         pButtonsPlace.add(bBack);
