@@ -119,7 +119,7 @@ public class InterfaceConfigWindow extends FramePanel {
 
         JLabel lWidthX = new JLabel("Width of the Board:");
         JLabel lHightY = new JLabel("Hight of the Board:");
-        JLabel lVisibleFieldsNum = new JLabel("Visible Filds:");
+        JLabel lVisibleFieldsNum = new JLabel("Error Corrects:");
         JLabel lSkipsNum = new JLabel("Possible Skips:");
         JLabel lWithdrawalsNum = new JLabel("Possible Withdrawals:");
         JLabel lNumberOfShips = new JLabel("Number of Ships:");

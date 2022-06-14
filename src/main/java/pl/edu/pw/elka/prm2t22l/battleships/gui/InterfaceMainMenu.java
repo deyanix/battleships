@@ -51,6 +51,20 @@ public class InterfaceMainMenu extends FramePanel{
                 changePanel(2);
             }
         });
+//------LOAD BUTTON ACTION--------------------------------------
+        bLoadGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                changePanel(4);
+            }
+        });
+//------SCOREBOARD BUTTON ACTION--------------------------------
+        bScoreboard.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                changePanel(5);
+            }
+        });
 
 //------EXIT BUTTON ACTION--------------------------------------
         bExit.addActionListener(new ActionListener() {

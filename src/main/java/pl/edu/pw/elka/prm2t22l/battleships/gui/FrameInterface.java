@@ -34,6 +34,8 @@ public class FrameInterface extends JFrame implements ActionListener {
                 case 1: setFramePanel(new InterfaceMainMenu()); break;
                 case 2: setFramePanel(new InterfaceConfigWindow()); break;
                 case 3: setFramePanel(new InterfaceBoardView()); break;
+                case 4: setFramePanel(new InterfaceSaves()); break;
+                case 5: setFramePanel(new InterfaceScoreboard()); break;
             }
         } catch (Exception ex) {
             ex.printStackTrace();
