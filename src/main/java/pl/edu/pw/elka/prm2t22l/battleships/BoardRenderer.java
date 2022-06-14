@@ -11,13 +11,19 @@ import java.io.File;
 import java.io.IOException;
 import java.util.stream.IntStream;
 import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class BoardRenderer {
     private final Board board;
     private final Dimension size;
     private final int fieldSize;
+    private final Image waterImage;
+    //private final Image battleshipImage;
+    private final static int IMAGE_SIZE_CONTROLER = 30;
 
     public BoardRenderer(Board board, Dimension size) {
+        this.waterImage = new ImageIcon("src/main/resources/water-waves.png").getImage();
+        //this.battleshipImage = new ImageIcon("src/main/resources/battleship-prototype3.jpg").getImage();
         this.board = board;
         this.size = size;
         this.fieldSize = calculateFieldSize();
@@ -45,14 +51,22 @@ public class BoardRenderer {
     }
 
     private void drawField(Graphics g) {
+
         for (Field field : board) {
             Point point = mapToImagePoint(field.getLocation());
             if (field.getState() == FieldState.WATER) {
-                g.setColor(Color.BLUE);
-                g.fillRect((int) point.getX(), (int) point.getY(), fieldSize, fieldSize);
+                g.drawImage(this.waterImage,
+                        (int) point.getX() + IMAGE_SIZE_CONTROLER/2, (int) point.getY() + IMAGE_SIZE_CONTROLER/2,
+                        fieldSize - IMAGE_SIZE_CONTROLER, fieldSize - IMAGE_SIZE_CONTROLER,null);
+                //g.setColor(Color.BLUE);
+                //g.fillRect((int) point.getX(), (int) point.getY(), fieldSize, fieldSize);
+
             } else if(field.getState() == FieldState.BATTLESHIP) {
+                //g.drawImage(this.battleshipImage, (int) point.getX() + IMAGE_SIZE_CONTROLER/2, (int) point.getY() + IMAGE_SIZE_CONTROLER/2, fieldSize - IMAGE_SIZE_CONTROLER, fieldSize - IMAGE_SIZE_CONTROLER,null);
                 g.setColor(Color.BLACK);
-                g.fillRect((int) point.getX(), (int) point.getY(), fieldSize, fieldSize);
+                g.fillRoundRect((int) point.getX() + IMAGE_SIZE_CONTROLER/2, (int) point.getY() + IMAGE_SIZE_CONTROLER/2,
+                        fieldSize - IMAGE_SIZE_CONTROLER,
+                        fieldSize - IMAGE_SIZE_CONTROLER,50,50);
             }
 
             g.setColor(Color.BLACK);
