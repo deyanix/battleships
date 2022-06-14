@@ -20,4 +20,12 @@ public class Location {
     public Location translate(int dx, int dy) {
         return new Location(x + dx, y + dy);
     }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }

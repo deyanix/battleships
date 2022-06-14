@@ -2,9 +2,10 @@ package pl.edu.pw.elka.prm2t22l.battleships.board;
 
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
 
+import java.util.Iterator;
 import java.util.stream.IntStream;
 
-public class Board {
+public class Board implements Iterable<Field> {
 	private final int width;
 	private final int height;
 	private final Field[][] fields;
@@ -49,5 +50,10 @@ public class Board {
 			}
 			System.out.println();
 		}
+	}
+
+	@Override
+	public Iterator<Field> iterator() {
+		return new BoardIterator(this);
 	}
 }
