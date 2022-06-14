@@ -1,5 +1,6 @@
 package pl.edu.pw.elka.prm2t22l.battleships.gui;
 
+import java.util.List;
 import java.awt.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -7,8 +8,11 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
-public class InterfaceMainMenu extends JPanel{
+public class InterfaceMainMenu extends FramePanel{
+
+
 
     public InterfaceMainMenu() throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -44,8 +48,7 @@ public class InterfaceMainMenu extends JPanel{
         bNewGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //setVisible(false);
-
+                changePanel(2);
             }
         });
 
@@ -69,4 +72,6 @@ public class InterfaceMainMenu extends JPanel{
         setLayout(null);
         setVisible(true);
     }
+
+
 }

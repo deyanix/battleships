@@ -3,21 +3,18 @@ package pl.edu.pw.elka.prm2t22l.battleships.gui;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class InterfaceConfigWindow extends JPanel {
+public class InterfaceConfigWindow extends FramePanel {
 
     JLayeredPane lpConfigLayeredPane;
     JPanel pCustomConfig;
 
     public int diggicultyLevel = 2;         //będzie zapisywać poziom trudności (od 0 do 4, gdzie 0 to custom)
     public boolean focusability = true; //zmienia możliwość zaznaczenia RadioButtonów
-    public boolean customSettingsEnabler = false;
 
     public InterfaceConfigWindow() throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -250,6 +247,12 @@ public class InterfaceConfigWindow extends JPanel {
         JButton bBack = new JButton("Back");
         bBack.setFocusable(false);
         bBack.setBounds(103,0,67,40);
+        bBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                changePanel(1);
+            }
+        });
 
         JButton bPlay = new JButton("Play");
         bPlay.setFocusable(false);

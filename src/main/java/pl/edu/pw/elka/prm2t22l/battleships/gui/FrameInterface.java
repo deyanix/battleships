@@ -2,11 +2,13 @@ package pl.edu.pw.elka.prm2t22l.battleships.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class FrameInterface extends JFrame {
+public class FrameInterface extends JFrame implements ActionListener {
 
-    public CardLayout clMainCardLayout;
-    public Container cPanelsContainer;
+    private InterfaceMainMenu mainMenu;
+    private InterfaceConfigWindow configWindow;
 
     public FrameInterface() {
 
@@ -16,16 +18,23 @@ public class FrameInterface extends JFrame {
         setResizable(false);
         setSize(600,600);
         try {
-            //add(new InterfaceMainMenu());  //PanelMainManu to nazwa klasy zawierającej panel main menu
-            //add(new InterfaceConfigWindow());
 
+            mainMenu=new InterfaceMainMenu();
+            mainMenu.addActionListener(this);
+            setContentPane(mainMenu);
+            configWindow=new InterfaceConfigWindow();
+            configWindow.addActionListener(this);
+
+            //setContentPane(new InterfaceMainMenu());  //PanelMainManu to nazwa klasy zawierającej panel main menu
+            //setContentPane(new InterfaceConfigWindow());
+/*
             cPanelsContainer = getContentPane();
             clMainCardLayout = new CardLayout();
             cPanelsContainer.setLayout(clMainCardLayout);
 
             cPanelsContainer.add(new InterfaceMainMenu());
             cPanelsContainer.add(new InterfaceConfigWindow());
-
+*/
 
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
@@ -40,5 +49,21 @@ public class FrameInterface extends JFrame {
         setLayout(null);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("ChangePanel")) {
+            ChangePanelEvent changePanelEvent = (ChangePanelEvent) e;
+            try {
+                switch (changePanelEvent.getTarget()) {
+                    case 1: setContentPane(new InterfaceMainMenu()); break;
+                    case 2: setContentPane(new InterfaceConfigWindow()); break;
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+        }
     }
 }
