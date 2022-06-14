@@ -16,6 +16,12 @@ import java.util.List;
 public class BoardComponent extends JPanel {
     private final Board board;
 
+    private void changeFieldState(Field field) {
+        if(field.getState() == FieldState.EMPTY) field.setState(FieldState.WATER);
+        else if(field.getState() == FieldState.WATER) field.setState(FieldState.BATTLESHIP);
+        else field.setState(FieldState.EMPTY);
+    }
+
     public BoardComponent(Board board) {
         this.board = board;
 
@@ -25,7 +31,7 @@ public class BoardComponent extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 Field field = getBoardRenderer().mapToField(e.getPoint());
                 if (field != null) {
-                    field.setState(FieldState.BATTLESHIP);
+                    changeFieldState(field);
                 }
                 repaint();
             }
