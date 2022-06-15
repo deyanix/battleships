@@ -41,7 +41,7 @@ public class BoardRenderer {
     }
 
     public BoardRenderer(GameBoard board) {
-        this(board, new Dimension((board.getWidth()+1) * 50, (board.getHeight()+1) * 50));
+        this(board, new Dimension((board.getWidth()+1) * 50 + 1, (board.getHeight()+1) * 50 + 1));
     }
 
     protected void saveImage(File file) throws IOException {

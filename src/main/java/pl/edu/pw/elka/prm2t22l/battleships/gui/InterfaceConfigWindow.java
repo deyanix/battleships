@@ -8,6 +8,7 @@ import pl.edu.pw.elka.prm2t22l.battleships.gui.event.PlayEvent;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 import static java.lang.Long.parseLong;
 
@@ -235,6 +236,16 @@ public class InterfaceConfigWindow extends FramePanel {
         JButton bSave = new JButton("Save");
         bSave.setFocusable(false);
         bSave.setBounds(30,0,67,40);
+        bSave.addActionListener(e -> {
+            GamePlayManager manager = createGameManager();
+            if (manager != null) {
+                try {
+                    manager.saveBoard();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
 
         JButton bBack = new JButton("Back");
         bBack.setFocusable(false);
@@ -245,42 +256,9 @@ public class InterfaceConfigWindow extends FramePanel {
         bPlay.setFocusable(false);
         bPlay.setBounds(30,45,140,40);
         bPlay.addActionListener(e -> {
-            GameConfiguration configuration = new GameConfiguration();
-            if (rbCustomMode.isSelected()){
-                configuration.setBoardSize(sWidthX.getValue(), sHightY.getValue());
-                configuration.setNumberOfStartingHints(sVisibleFieldsNum.getValue());
-                configuration.setNumberOfHints(sSkipsNum.getValue());
-                configuration.setUndoesAvailable(cbPossibleUndos.isSelected());
-                configuration.setShipAmount(ShipType.SHORT, sSmallShips.getValue());
-                configuration.setShipAmount(ShipType.MEDIUM, sMediumShips.getValue());
-                configuration.setShipAmount(ShipType.LONG, sLargeShips.getValue());
-            } else {
-                if (rbDifficultyEasy.isSelected()) {
-                    configuration = GameConfiguration.getEasyConfiguration();
-                } else if(rbDifficultyNormal.isSelected()) {
-                    configuration = GameConfiguration.getMediumConfiguration();
-                } else {
-                    configuration = GameConfiguration.getHardConfiguration();
-                }
-            }
-
-            if (configuration.setSeedText(tfSeedPlace.getText())){
-                GamePlayManager manager = new GamePlayManager(configuration);
-                if (!manager.createBoard()) {
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "This configuration is too hard for generator",
-                            "Board generating error",
-                            JOptionPane.ERROR_MESSAGE);
-                } else {
-                    invokeEvent(new PlayEvent(this, manager));
-                }
-            } else {
-                JOptionPane.showMessageDialog(
-                        null,
-                        "The seed you've just entered can't be transformed to required data type LONG",
-                        "Warning",
-                        JOptionPane.WARNING_MESSAGE);
+            GamePlayManager manager = createGameManager();
+            if (manager != null) {
+                invokeEvent(new PlayEvent(this, manager));
             }
         });
 
@@ -306,7 +284,47 @@ public class InterfaceConfigWindow extends FramePanel {
         add(pDifficultyConfig);
         add(pCustomConfig);
         add(pButtonsPlace);
-
         setVisible(true);
+    }
+
+    private GamePlayManager createGameManager() {
+        GameConfiguration configuration = new GameConfiguration();
+        if (rbCustomMode.isSelected()){
+            configuration.setBoardSize(sWidthX.getValue(), sHightY.getValue());
+            configuration.setNumberOfStartingHints(sVisibleFieldsNum.getValue());
+            configuration.setNumberOfHints(sSkipsNum.getValue());
+            configuration.setUndoesAvailable(cbPossibleUndos.isSelected());
+            configuration.setShipAmount(ShipType.SHORT, sSmallShips.getValue());
+            configuration.setShipAmount(ShipType.MEDIUM, sMediumShips.getValue());
+            configuration.setShipAmount(ShipType.LONG, sLargeShips.getValue());
+        } else {
+            if (rbDifficultyEasy.isSelected()) {
+                configuration = GameConfiguration.getEasyConfiguration();
+            } else if(rbDifficultyNormal.isSelected()) {
+                configuration = GameConfiguration.getMediumConfiguration();
+            } else {
+                configuration = GameConfiguration.getHardConfiguration();
+            }
+        }
+
+        if (configuration.setSeedText(tfSeedPlace.getText())){
+            GamePlayManager manager = new GamePlayManager(configuration);
+            if (!manager.createBoard()) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "This configuration is too hard for generator",
+                        "Board generating error",
+                        JOptionPane.ERROR_MESSAGE);
+            } else {
+                return manager;
+            }
+        } else {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "The seed you've just entered can't be transformed to required data type LONG",
+                    "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+        return null;
     }
 }

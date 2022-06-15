@@ -19,6 +19,7 @@ import java.util.Stack;
 
 public class GamePlayManager {
 	private static final File SAVE = new File("save.json");
+	private static final File BOARD_IMAGE = new File("board.png");
 	private static final ReadFileManager readManager = new ReadFileManager();
 	public static GamePlayManager loadGame() throws IOException {
 		if (!SAVE.isFile()) {
@@ -84,6 +85,10 @@ public class GamePlayManager {
 	public void pause() {
 		passedTime = getCurrentTime();
 		startTime = null;
+	}
+
+	public void saveBoard() throws IOException {
+		new BoardRenderer(this.getBoard()).saveImage(BOARD_IMAGE);
 	}
 
 	public Duration getCurrentTime() {
