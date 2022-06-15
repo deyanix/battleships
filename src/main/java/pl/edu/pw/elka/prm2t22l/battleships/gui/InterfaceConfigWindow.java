@@ -10,8 +10,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
-import static java.lang.Long.parseLong;
-
 public class InterfaceConfigWindow extends FramePanel {
 
     private final JSlider sWidthX;
@@ -27,7 +25,6 @@ public class InterfaceConfigWindow extends FramePanel {
     private final JRadioButton rbDifficultyNormal;
     private final JRadioButton rbDifficultyHard;
     private final JRadioButton rbCustomMode;
-
 
     private JPanel pCustomConfig;
 
@@ -225,8 +222,6 @@ public class InterfaceConfigWindow extends FramePanel {
         pCustomConfig.add(lWithdrawalsNum);
         pCustomConfig.add(lNumberOfShips);
 
-
-
         pCustomConfig.setVisible(false);  //wcześniej w tej linijce bylo: pCustomConfig.setVisible(customSettingsEnabler);
 //------PANEL Z PRZYCISKAMI---------------------------------------
         JPanel pButtonsPlace = new JPanel();
@@ -297,14 +292,12 @@ public class InterfaceConfigWindow extends FramePanel {
             configuration.setShipAmount(ShipType.SHORT, sSmallShips.getValue());
             configuration.setShipAmount(ShipType.MEDIUM, sMediumShips.getValue());
             configuration.setShipAmount(ShipType.LONG, sLargeShips.getValue());
-        } else {
-            if (rbDifficultyEasy.isSelected()) {
-                configuration = GameConfiguration.getEasyConfiguration();
-            } else if(rbDifficultyNormal.isSelected()) {
-                configuration = GameConfiguration.getMediumConfiguration();
-            } else {
-                configuration = GameConfiguration.getHardConfiguration();
-            }
+        } else if (rbDifficultyEasy.isSelected()) {
+            configuration = GameConfiguration.getEasyConfiguration();
+        } else if (rbDifficultyNormal.isSelected()) {
+            configuration = GameConfiguration.getMediumConfiguration();
+        } else if (rbDifficultyHard.isSelected()) {
+            configuration = GameConfiguration.getHardConfiguration();
         }
 
         if (configuration.setSeedText(tfSeedPlace.getText())){
