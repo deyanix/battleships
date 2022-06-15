@@ -4,8 +4,21 @@ import pl.edu.pw.elka.prm2t22l.battleships.entity.ShipType;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
+
+import static java.lang.Long.parseLong;
 
 public class GameConfiguration {
+    public static GameConfiguration getEasyConfiguration(){
+        return new GameConfiguration(6, 6, 10, 10, true);
+    }
+    public static GameConfiguration getMediumConfiguration() {
+        return new GameConfiguration(8, 8, 8, 4, true);
+    }
+    public static GameConfiguration getHardConfiguration(){
+        return new GameConfiguration(10, 10, 4, 2, false);
+    }
+
     private final Map<ShipType, Integer> shipsAmounts = new HashMap<>();
     private int boardWidth;
     private int boardHeight;
@@ -51,11 +64,11 @@ public class GameConfiguration {
         this.numberOfStartingHints = numberOfStartingHints;
     }
 
-    public int getNumberOfAvailableUndoes() {
+    public int getNumberOfAvailableHints() {
         return numberOfHints;
     }
 
-    public void setNumberOfAvailableUndoes(int numberOfAvailableHints) {
+    public void setNumberOfAvailableHints(int numberOfAvailableHints) {
         this.numberOfHints = numberOfAvailableHints;
     }
 
@@ -73,5 +86,27 @@ public class GameConfiguration {
 
     public void setSeed(long seed) {
         this.seed = seed;
+    }
+
+    public boolean checkSeed(String seedToBeChecked){
+        try{
+            setSeed(parseLong(seedToBeChecked));
+        }
+        catch (NumberFormatException e){
+            return false;
+        }
+        return true;
+    }
+    public void printOutConfiguration(){
+        System.out.println(getBoardHeight() + ":" + getBoardWidth());
+    }
+    public GameConfiguration(){};
+    public GameConfiguration(int boardWidth, int boardHeight, int numberOfStartingHints, int numberOfHints, boolean undoesAvailable) {
+        this.boardWidth = boardWidth;
+        this.boardHeight = boardHeight;
+        this.numberOfStartingHints = numberOfStartingHints;
+        this.numberOfHints = numberOfHints;
+        this.undoesAvailable = undoesAvailable;
+        this.seed = ThreadLocalRandom.current().nextLong();
     }
 }

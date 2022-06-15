@@ -1,5 +1,8 @@
 package pl.edu.pw.elka.prm2t22l.battleships.gui;
 
+import pl.edu.pw.elka.prm2t22l.battleships.GameConfiguration;
+import pl.edu.pw.elka.prm2t22l.battleships.entity.ShipType;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -7,6 +10,8 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
+import static java.lang.Long.parseLong;
 
 public class InterfaceConfigWindow extends FramePanel {
 
@@ -285,7 +290,38 @@ public class InterfaceConfigWindow extends FramePanel {
         bPlay.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                changePanel(3);
+                GameConfiguration configuration = new GameConfiguration();
+                if (rbCustomMode.isSelected()){
+                    configuration.setBoardSize(sWidthX.getValue(), sHightY.getValue());
+                    configuration.setNumberOfStartingHints(sVisibleFieldsNum.getValue());
+                    configuration.setNumberOfAvailableHints(sSkipsNum.getValue());
+                    configuration.setUndoesAvailable(cbPossibleUndos.isSelected());
+                    configuration.setShipAmount(ShipType.SHORT, sSmallShips.getValue());
+                    configuration.setShipAmount(ShipType.MEDIUM, sMediumShips.getValue());
+                    configuration.setShipAmount(ShipType.LONG, sLargeShips.getValue());
+                    if (configuration.checkSeed(tfSeedPlace.getText())){
+                        changePanel(3);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "The seed you've just entered can't be transformed to required data type LONG",
+                                "Warning",
+                                JOptionPane.WARNING_MESSAGE);
+                    }
+                }
+                else{
+                    if(rbDifficultyEasy.isSelected()){
+                        configuration = GameConfiguration.getEasyConfiguration();
+                    }
+                    else if(rbDifficultyNormal.isSelected()){
+                        configuration = GameConfiguration.getMediumConfiguration();
+                    }
+                    else{
+                        configuration = GameConfiguration.getHardConfiguration();
+                    }
+                    changePanel(3);
+                }
             }
         });
 
