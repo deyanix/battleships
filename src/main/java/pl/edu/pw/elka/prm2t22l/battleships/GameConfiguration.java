@@ -11,7 +11,7 @@ public class GameConfiguration {
     private int boardHeight;
     private int numberOfStartingHints;
     private int numberOfHints;
-    private boolean undosAvailable;
+    private boolean undoesAvailable;
     private long seed;
 
     public void setShipAmount(ShipType type, int amount) {
@@ -60,11 +60,11 @@ public class GameConfiguration {
     }
 
     public boolean isHintsAvailable() {
-        return undosAvailable;
+        return undoesAvailable;
     }
 
     public void setHintsAvailable(boolean hintsAvailable) {
-        this.undosAvailable = hintsAvailable;
+        this.undoesAvailable = hintsAvailable;
     }
 
     public long getSeed() {
