@@ -9,9 +9,9 @@ public class GameConfiguration {
     private final Map<ShipType, Integer> shipsAmounts = new HashMap<>();
     private int boardWidth;
     private int boardHeight;
-    private int numberOfVisibleFields;
-    private int numberOfAvailableUndoes;
-    private boolean hintsAvailable;
+    private int numberOfStartingHints;
+    private int numberOfHints;
+    private boolean undosAvailable;
     private long seed;
 
     public void setShipAmount(ShipType type, int amount) {
@@ -43,28 +43,28 @@ public class GameConfiguration {
         this.boardHeight = boardHeight;
     }
 
-    public int getNumberOfVisibleFields() {
-        return numberOfVisibleFields;
+    public int getNumberOfStartingHints() {
+        return numberOfStartingHints;
     }
 
-    public void setNumberOfVisibleFields(int numberOfVisibleFields) {
-        this.numberOfVisibleFields = numberOfVisibleFields;
+    public void setNumberOfStartingHints(int numberOfStartingHints) {
+        this.numberOfStartingHints = numberOfStartingHints;
     }
 
     public int getNumberOfAvailableUndoes() {
-        return numberOfAvailableUndoes;
+        return numberOfHints;
     }
 
     public void setNumberOfAvailableUndoes(int numberOfAvailableUndoes) {
-        this.numberOfAvailableUndoes = numberOfAvailableUndoes;
+        this.numberOfHints = numberOfAvailableUndoes;
     }
 
     public boolean isHintsAvailable() {
-        return hintsAvailable;
+        return undosAvailable;
     }
 
     public void setHintsAvailable(boolean hintsAvailable) {
-        this.hintsAvailable = hintsAvailable;
+        this.undosAvailable = hintsAvailable;
     }
 
     public long getSeed() {

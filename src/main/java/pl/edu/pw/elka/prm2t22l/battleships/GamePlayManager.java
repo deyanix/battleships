@@ -2,7 +2,6 @@ package pl.edu.pw.elka.prm2t22l.battleships;
 
 import pl.edu.pw.elka.prm2t22l.battleships.board.BoardRasterizer;
 import pl.edu.pw.elka.prm2t22l.battleships.board.GameBoard;
-import pl.edu.pw.elka.prm2t22l.battleships.board.RasterBoard;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Field;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.FieldState;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
@@ -11,10 +10,6 @@ import pl.edu.pw.elka.prm2t22l.battleships.generator.BoardGenerator;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
 import java.util.Stack;
 
 public class GamePlayManager {
@@ -58,7 +53,7 @@ public class GamePlayManager {
 	}
 
 	private void showInitialFields() {
-		int amount = Math.min(configuration.getNumberOfVisibleFields(), board.getCapacity());
+		int amount = Math.min(configuration.getNumberOfStartingHints(), board.getCapacity());
 		for (int i = 0; i < amount; i++) {
 			hintManager.nextHint();
 		}
