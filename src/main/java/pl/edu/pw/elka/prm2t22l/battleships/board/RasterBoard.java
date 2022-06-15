@@ -1,18 +1,18 @@
 package pl.edu.pw.elka.prm2t22l.battleships.board;
 
+import pl.edu.pw.elka.prm2t22l.battleships.entity.Field;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
 
 import java.util.Iterator;
 import java.util.stream.IntStream;
 
-public class Board implements Iterable<Field> {
+public class RasterBoard extends AbstractBoard implements Iterable<Field> {
 	private final int width;
 	private final int height;
 	private final Field[][] fields;
 
-	public Board(int width, int height) {
-		this.width = width;
-		this.height = height;
+	public RasterBoard(int width, int height) {
+		super(width, height);
 		this.fields = generateFields(width, height);
 	}
 
@@ -20,24 +20,12 @@ public class Board implements Iterable<Field> {
 		return IntStream.range(0, height)
 				.mapToObj(y -> IntStream.range(0, width)
 					.mapToObj(x -> new Field(this, x, y))
-						.toArray(Field[]::new))
+					.toArray(Field[]::new))
 				.toArray(Field[][]::new);
-	}
-
-	public int getWidth() {
-		return width;
-	}
-
-	public int getHeight() {
-		return height;
 	}
 
 	public Field[][] getFields() {
 		return fields;
-	}
-
-	public boolean hasField(int x, int y) {
-		return x >= 0 && x < getWidth() && y >= 0 && y < getHeight();
 	}
 
 	public Field getField(int x, int y) {

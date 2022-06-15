@@ -1,6 +1,6 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
-import pl.edu.pw.elka.prm2t22l.battleships.board.FieldState;
+import pl.edu.pw.elka.prm2t22l.battleships.entity.FieldState;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
 
 public class Turn {
