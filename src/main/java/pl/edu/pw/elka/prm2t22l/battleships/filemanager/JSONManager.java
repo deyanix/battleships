@@ -59,16 +59,6 @@ public class JSONManager {
         return jArray;
     }
 
-    public JSONArray toJsonArray(RasterBoard rasterBoard) {
-
-        JSONArray jsonArray = new JSONArray();
-        for(Field field : rasterBoard) {
-            JSONObject jsonObject = toJsonObject(field);
-            jsonArray.put(jsonObject);
-        }
-        return jsonArray;
-    }
-
     public void putJsonObject(String key, int value) {
         this.jObject.put(key,value);
     }
@@ -85,18 +75,11 @@ public class JSONManager {
         this.jObject.put(key,value);
     }
 
-    public JSONObject toJsonObject(Field field) {
-
-        JSONObject jObject = new JSONObject();
-        jObject.put(field.getX());
-        jObject.put(field.getY());
-        jObject.put(field.getState());
-        jObject.put(field.isImmutable());
-
-        return jObject;
+    public void putJsonObject(String key, JSONArray value) {
+        this.jObject.put(key,value);
     }
 
-    public void putJsonObject(String key, JSONArray value) {
+    public void putJsonObject(String key, JSONObject value) {
         this.jObject.put(key,value);
     }
 

@@ -2,15 +2,16 @@ package pl.edu.pw.elka.prm2t22l.battleships.filemanager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONStringer;
+import org.json.JSONTokener;
 import pl.edu.pw.elka.prm2t22l.battleships.GameConfiguration;
 import pl.edu.pw.elka.prm2t22l.battleships.board.RasterBoard;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Field;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.ShipType;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SaveFileManager {
 
@@ -19,39 +20,50 @@ public class SaveFileManager {
     private final long time;
     private final int takenHints;
 
-    SaveFileManager(RasterBoard board, long time,GameConfiguration gameConfiguration, int takenHints) {
+    public SaveFileManager(RasterBoard board, GameConfiguration gameConfiguration, int takenHints, long time) {
         this.board = board;
         this.gameConfiguration = gameConfiguration;
         this.time = time;
         this.takenHints = takenHints;
     }
 
-    private JSONObject toJsonObject(String key, int value) {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put(key,value);
-        return jsonObject;
+    public JSONObject createJsonField(Field field) {
+        JSONObject jObject = new JSONObject();
+        jObject.put("x", field.getX());
+        jObject.put("y", field.getY());
+        jObject.put("state", field.getState());
+        jObject.put("immutable", field.isImmutable());
+
+        return jObject;
     }
 
-    public void writeToFile(String fileName) {
-        JSONManager myJsonManager = new JSONManager();
+    public JSONArray createJsonBoard(RasterBoard rasterBoard) {
+        JSONArray jsonArray = new JSONArray();
+        for(Field field : rasterBoard) {
+            JSONObject jsonObject = createJsonField(field);
+            jsonArray.put(jsonObject);
+        }
+        return jsonArray;
+    }
 
+    public void writeToFile(File file) throws IOException {
+        JSONManager myJsonManager = new JSONManager();
         myJsonManager.putJsonObject("seed", gameConfiguration.getSeed());
         myJsonManager.putJsonObject("width",board.getWidth());
         myJsonManager.putJsonObject("height", board.getHeight());
-        myJsonManager.putJsonObject("number_of_starting_hints", gameConfiguration.getNumberOfStartingHints());
-        myJsonManager.putJsonObject("number_of_available_undos", gameConfiguration.isUndoesAvailable());
-        myJsonManager.putJsonObject("taken_hints", this.takenHints);
-        myJsonManager.putJsonObject("time", this.time);
-        myJsonManager.putJsonObject("board", myJsonManager.toJsonArray(board.getFields()));
-        int smallShipAmount = gameConfiguration.getShipAmount(ShipType.SHORT);
-        int mediumShipAmount = gameConfiguration.getShipAmount(ShipType.MEDIUM);
-        int longShipAmount = gameConfiguration.getShipAmount(ShipType.LONG);
+        myJsonManager.putJsonObject("numberOfStartingHints", gameConfiguration.getNumberOfStartingHints());
+        myJsonManager.putJsonObject("undoesAvailable", gameConfiguration.isUndoesAvailable());
+        myJsonManager.putJsonObject("takenHints", takenHints);
+        myJsonManager.putJsonObject("time", time);
+        myJsonManager.putJsonObject("board", createJsonBoard(board));
+        JSONObject ships = new JSONObject();
+        for (ShipType type : ShipType.values()) {
+            ships.put(type.toString(), gameConfiguration.getShipAmount(type));
+        }
+        myJsonManager.putJsonObject("ships", ships);
 
-        try(FileWriter writer = new FileWriter(fileName)) {
-            writer.write(myJsonManager.getJObject().toString());
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        FileWriter writer = new FileWriter(file);
+        writer.write(myJsonManager.getJObject().toString(4));
+        writer.close();
     }
 }

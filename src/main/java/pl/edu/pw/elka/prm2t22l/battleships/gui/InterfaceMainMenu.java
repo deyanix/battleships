@@ -1,5 +1,8 @@
 package pl.edu.pw.elka.prm2t22l.battleships.gui;
 
+import pl.edu.pw.elka.prm2t22l.battleships.GamePlayManager;
+import pl.edu.pw.elka.prm2t22l.battleships.gui.event.PlayEvent;
+
 import java.util.List;
 import java.awt.*;
 import javax.imageio.ImageIO;
@@ -14,8 +17,7 @@ public class InterfaceMainMenu extends FramePanel{
 
 
 
-    public InterfaceMainMenu() throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    public InterfaceMainMenu() {
         JButton bNewGame = new JButton("New Game");
         JButton bLoadGame = new JButton("Load Game");
         JButton bScoreboard = new JButton("Scoreboard");
@@ -44,7 +46,18 @@ public class InterfaceMainMenu extends FramePanel{
 //------NEW GAME BUTTON ACTION----------------------------------
         bNewGame.addActionListener(e -> changePanel(2));
 //------LOAD BUTTON ACTION--------------------------------------
-        bLoadGame.addActionListener(e -> changePanel(4));
+        bLoadGame.addActionListener(e -> {
+            try {
+                GamePlayManager manager = GamePlayManager.loadGame();
+                if (manager == null) {
+                    JOptionPane.showMessageDialog(this, "You don't have a saved game", "No saves", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    invokeEvent(new PlayEvent(this, manager));
+                }
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 //------SCOREBOARD BUTTON ACTION--------------------------------
         bScoreboard.addActionListener(e -> changePanel(5));
 

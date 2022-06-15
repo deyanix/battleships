@@ -33,6 +33,14 @@ public class GameHintManager {
 				random.nextInt(getBoard().getHeight()));
 	}
 
+	public int getTakenHints() {
+		return takenHints;
+	}
+
+	public void setTakenHints(int takenHints) {
+		this.takenHints = takenHints;
+	}
+
 	public boolean hasMutableFields() {
 		return Arrays.stream(board.getPlayerBoard().getFields())
 				.anyMatch(row -> Arrays.stream(row).anyMatch(field -> !field.isImmutable()));

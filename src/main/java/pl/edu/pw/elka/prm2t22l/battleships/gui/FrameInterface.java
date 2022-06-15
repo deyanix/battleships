@@ -11,8 +11,8 @@ import java.awt.event.ActionListener;
 
 public class FrameInterface extends JFrame implements ActionListener {
     private GamePlayManager gamePlayManager;
-    public FrameInterface() {
-
+    public FrameInterface() throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         Image icon = Toolkit.getDefaultToolkit().getImage("src\\main\\resources\\warship.png");
         setIconImage(icon);
         setTitle("BATTLESHIPS");

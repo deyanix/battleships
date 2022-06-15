@@ -195,6 +195,7 @@ public class InterfaceConfigWindow extends FramePanel {
         pCustomConfig.add(lShip2);
         JLabel lShip3 = new JLabel(new ImageIcon("src\\main\\resources\\Ship3.png"));
         lShip3.setBounds(265,170,50,130);
+        pCustomConfig.add(lShip3);
 
         pCustomConfig.add(lWidthX);
         pCustomConfig.add(lHightY);
@@ -251,8 +252,9 @@ public class InterfaceConfigWindow extends FramePanel {
                             "This configuration is too hard for generator",
                             "Board generating error",
                             JOptionPane.ERROR_MESSAGE);
+                } else {
+                    invokeEvent(new PlayEvent(this, manager));
                 }
-                invokeEvent(new PlayEvent(this, manager));
             } else {
                 JOptionPane.showMessageDialog(
                         null,

@@ -77,6 +77,14 @@ public class InterfaceBoardView extends FramePanel {
 			}
 		});
 		JButton bSaveProgress = new JButton("Save");
+		bSaveProgress.addActionListener(e -> {
+			try {
+				manager.save();
+				changePanel(1);
+			} catch (IOException ex) {
+				throw new RuntimeException(ex);
+			}
+		});
 		JButton bExitToMm = new JButton("Exit");
 
 		bSolution.setFocusable(false);

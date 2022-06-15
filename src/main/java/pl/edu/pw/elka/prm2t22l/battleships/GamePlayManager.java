@@ -6,13 +6,27 @@ import pl.edu.pw.elka.prm2t22l.battleships.entity.Field;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.FieldState;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Turn;
+import pl.edu.pw.elka.prm2t22l.battleships.filemanager.ReadFileManager;
+import pl.edu.pw.elka.prm2t22l.battleships.filemanager.SaveFileManager;
 import pl.edu.pw.elka.prm2t22l.battleships.generator.BoardGenerator;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Stack;
 
 public class GamePlayManager {
+	private static final File SAVE = new File("save.json");
+	private static final ReadFileManager readManager = new ReadFileManager();
+	public static GamePlayManager loadGame() throws IOException {
+		if (!SAVE.isFile()) {
+			return null;
+		}
+		return readManager.readFile(SAVE);
+	}
+
 	private static final int N = 10000;
 	private final GameConfiguration configuration;
 	private final Stack<Turn> turns = new Stack<>();
@@ -79,6 +93,13 @@ public class GamePlayManager {
 		return Duration.between(startTime, LocalDateTime.now()).plus(passedTime);
 	}
 
+	public GameHintManager getHintManager() {
+		return hintManager;
+	}
+
+	public void setPassedTime(Duration passedTime) {
+		this.passedTime = passedTime;
+	}
 	public Duration getPassedTime() {
 		return passedTime;
 	}
@@ -106,5 +127,10 @@ public class GamePlayManager {
 
 	public boolean isAvailableRollbackTurn() {
 		return turns.empty();
+	}
+
+	public void save() throws IOException {
+		SaveFileManager saveManager = new SaveFileManager(getBoard().getPlayerBoard(), getConfiguration(), hintManager.getTakenHints(), getCurrentTime().getSeconds());
+		saveManager.writeToFile(SAVE);
 	}
 }
