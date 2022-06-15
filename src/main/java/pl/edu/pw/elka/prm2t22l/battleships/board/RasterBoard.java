@@ -1,6 +1,7 @@
 package pl.edu.pw.elka.prm2t22l.battleships.board;
 
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Field;
+import pl.edu.pw.elka.prm2t22l.battleships.entity.FieldState;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
 
 import java.util.Iterator;
@@ -20,6 +21,12 @@ public class RasterBoard extends AbstractBoard implements Iterable<Field> {
 					.mapToObj(x -> new Field(this, x, y))
 					.toArray(Field[]::new))
 				.toArray(Field[][]::new);
+	}
+
+	public void fill(FieldState state) {
+		for (Field field : this) {
+			field.setState(state);
+		}
 	}
 
 	public Field[][] getFields() {

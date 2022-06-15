@@ -14,13 +14,14 @@ public class Main {
 		configuration.setShipAmount(ShipType.LONG, 1);
 		configuration.setShipAmount(ShipType.MEDIUM, 2);
 		configuration.setShipAmount(ShipType.SHORT, 3);
-		configuration.setSeed(ThreadLocalRandom.current().nextLong());
+		configuration.setNumberOfVisibleFields(123);
+		configuration.setSeed(10);
 		GamePlayManager manager = new GamePlayManager(configuration);
 		manager.createBoard();
 
 		JFrame frame = new JFrame();
 		frame.setSize(600,600);
-		frame.setContentPane(new BoardComponent(manager.getBoard()));
+		frame.setContentPane(new BoardComponent(manager));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
