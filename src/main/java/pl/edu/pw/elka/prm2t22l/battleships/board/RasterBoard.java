@@ -3,9 +3,10 @@ package pl.edu.pw.elka.prm2t22l.battleships.board;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Field;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
 
+import java.util.Iterator;
 import java.util.stream.IntStream;
 
-public class RasterBoard extends AbstractBoard {
+public class RasterBoard extends AbstractBoard implements Iterable<Field> {
 	private final Field[][] fields;
 
 	public RasterBoard(int width, int height) {
@@ -26,7 +27,10 @@ public class RasterBoard extends AbstractBoard {
 	}
 
 	public Field getField(int x, int y) {
-		return fields[y][x];
+		if (isLocationAvailable(x, y)) {
+			return fields[y][x];
+		}
+		return null;
 	}
 	public Field getField(Location location) {
 		return getField(location.getX(), location.getY());
@@ -39,5 +43,10 @@ public class RasterBoard extends AbstractBoard {
 			}
 			System.out.println();
 		}
+	}
+
+	@Override
+	public Iterator<Field> iterator() {
+		return new BoardIterator(this);
 	}
 }

@@ -25,6 +25,14 @@ public class Field {
 		return location;
 	}
 
+	public int getX() {
+		return getLocation().getX();
+	}
+
+	public int getY() {
+		return getLocation().getY();
+	}
+
 	public FieldState getState() {
 		return state;
 	}
