@@ -10,18 +10,17 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Main {
 	public static void main(String[] args) {
 		GameConfiguration configuration = new GameConfiguration();
-		configuration.setBoardSize(6, 6);
+		configuration.setBoardSize(7, 6);
 		configuration.setShipAmount(ShipType.LONG, 1);
 		configuration.setShipAmount(ShipType.MEDIUM, 2);
 		configuration.setShipAmount(ShipType.SHORT, 3);
 		configuration.setSeed(ThreadLocalRandom.current().nextLong());
-
-		BoardGenerator generator = new BoardGenerator(configuration);
-		while (!generator.generate());
+		GamePlayManager manager = new GamePlayManager(configuration);
+		manager.createBoard();
 
 		JFrame frame = new JFrame();
 		frame.setSize(600,600);
-		frame.setContentPane(new BoardComponent(generator.getRasterBoard()));
+		frame.setContentPane(new BoardComponent(manager.getBoard()));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}

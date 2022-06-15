@@ -14,7 +14,7 @@ public class BoardIterator implements Iterator<Field> {
 	}
 
 	private Field getLocation(int index) {
-		return board.getField(index % board.getHeight(), index / board.getHeight());
+		return board.getField(index % board.getWidth(), index / board.getWidth());
 	}
 
 	@Override

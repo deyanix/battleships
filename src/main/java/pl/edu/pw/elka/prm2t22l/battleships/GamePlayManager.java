@@ -1,30 +1,50 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
+import pl.edu.pw.elka.prm2t22l.battleships.board.GameBoard;
 import pl.edu.pw.elka.prm2t22l.battleships.board.RasterBoard;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Field;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.FieldState;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
+import pl.edu.pw.elka.prm2t22l.battleships.entity.Turn;
+import pl.edu.pw.elka.prm2t22l.battleships.generator.BoardGenerator;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Stack;
 
 public class GamePlayManager {
-	private final RasterBoard board;
+	private static final int N = 10000;
+	private final GameConfiguration configuration;
 	private final Stack<Turn> turns = new Stack<>();
+	private GameBoard board;
 	private LocalDateTime startTime;
 	private Duration passedTime = Duration.ZERO;
 
-	public GamePlayManager(RasterBoard board) {
-		this.board = board;
+	public GamePlayManager(GameConfiguration configuration) {
+		this.configuration = configuration;
 	}
 
-	public RasterBoard getBoard() {
+	public GameConfiguration getConfiguration() {
+		return configuration;
+	}
+
+	public GameBoard getBoard() {
 		return board;
 	}
 
 	public LocalDateTime getStartTime() {
 		return startTime;
+	}
+
+	public boolean createBoard() {
+		BoardGenerator generator = new BoardGenerator(configuration);
+		for (int i = 0; i < N; i++) {
+			if (generator.generate()) {
+				board = new GameBoard(generator.getRasterBoard());
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void start() {
@@ -48,7 +68,7 @@ public class GamePlayManager {
 	}
 
 	public void turn(Location location, FieldState state) {
-		Field field = board.getField(location);
+		Field field = board.getPlayerBoard().getField(location);
 		FieldState previousState = field.getState();
 		field.setState(state);
 		turns.push(new Turn(location, previousState, state));
@@ -64,7 +84,7 @@ public class GamePlayManager {
 		}
 
 		Turn lastTurn = turns.pop();
-		board.getField(lastTurn.getLocation()).setState(lastTurn.getPreviousState());
+		board.getPlayerBoard().getField(lastTurn.getLocation()).setState(lastTurn.getPreviousState());
 		return true;
 	}
 

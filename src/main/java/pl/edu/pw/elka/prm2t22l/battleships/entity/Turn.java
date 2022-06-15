@@ -1,4 +1,4 @@
-package pl.edu.pw.elka.prm2t22l.battleships;
+package pl.edu.pw.elka.prm2t22l.battleships.entity;
 
 import pl.edu.pw.elka.prm2t22l.battleships.entity.FieldState;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;

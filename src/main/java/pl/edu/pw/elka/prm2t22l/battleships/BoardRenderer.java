@@ -1,5 +1,6 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
+import pl.edu.pw.elka.prm2t22l.battleships.board.GameBoard;
 import pl.edu.pw.elka.prm2t22l.battleships.board.RasterBoard;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Field;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.FieldState;
@@ -14,25 +15,25 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class BoardRenderer {
-    private final RasterBoard board;
+    private final GameBoard board;
     private final Dimension size;
     private final int fieldSize;
     private final Image waterImage;
     private final static float FIELD_PADDING = 0.15f;
     private final static float FIELD_ROUND = 0.25f;
 
-    public BoardRenderer(RasterBoard board, Dimension size) {
+    public BoardRenderer(GameBoard board, Dimension size) {
         this.waterImage = new ImageIcon("src/main/resources/water-waves.png").getImage();
         this.board = board;
         this.size = size;
         this.fieldSize = calculateFieldSize();
     }
 
-    public BoardRenderer(RasterBoard board, int width, int height) {
+    public BoardRenderer(GameBoard board, int width, int height) {
         this(board, new Dimension(width, height));
     }
 
-    public BoardRenderer(RasterBoard board) {
+    public BoardRenderer(GameBoard board) {
         this(board, new Dimension((board.getWidth()+1) * 50, (board.getHeight()+1) * 50));
     }
 
@@ -50,7 +51,7 @@ public class BoardRenderer {
     }
 
     private void drawField(Graphics g) {
-        for (Field field : board) {
+        for (Field field : board.getPlayerBoard()) {
             Point point = mapToImagePoint(field.getLocation());
             if (field.getState() == FieldState.WATER) {
                 g.drawImage(this.waterImage,
@@ -106,7 +107,7 @@ public class BoardRenderer {
     public Field mapToField(double x, double y) {
         int locX = (int) (x / fieldSize) - 1;
         int locY = (int) (y / fieldSize) - 1;
-        return board.getField(locX, locY);
+        return board.getPlayerBoard().getField(locX, locY);
     }
 
     public Field mapToField(Point point) {
@@ -120,18 +121,18 @@ public class BoardRenderer {
     }
 
     private int getShipsInRow(int row) {
-        return (int) IntStream.range(0, board.getHeight())
+        return (int) IntStream.range(0, board.getWidth())
                 .mapToObj(x -> new Location(x, row))
-                .map(board::getField)
+                .map(board.getComputedBoard()::getField)
                 .map(Field::getState)
                 .filter(FieldState.BATTLESHIP::equals)
                 .count();
     }
 
     private int getShipsInColumn(int column) {
-        return (int) IntStream.range(0, board.getWidth())
+        return (int) IntStream.range(0, board.getHeight())
                 .mapToObj(y -> new Location(column, y))
-                .map(board::getField)
+                .map(board.getComputedBoard()::getField)
                 .map(Field::getState)
                 .filter(FieldState.BATTLESHIP::equals)
                 .count();

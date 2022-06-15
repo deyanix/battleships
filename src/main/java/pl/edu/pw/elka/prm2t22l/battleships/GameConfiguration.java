@@ -12,7 +12,6 @@ public class GameConfiguration {
     private int numberOfVisibleFields;
     private int numberOfAvailableUndoes;
     private boolean hintsAvailable;
-    private Level level;
     private long seed;
 
     public void setShipAmount(ShipType type, int amount) {
@@ -66,14 +65,6 @@ public class GameConfiguration {
 
     public void setHintsAvailable(boolean hintsAvailable) {
         this.hintsAvailable = hintsAvailable;
-    }
-
-    public Level getLevel() {
-        return level;
-    }
-
-    public void setLevel(Level level) {
-        this.level = level;
     }
 
     public long getSeed() {
