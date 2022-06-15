@@ -63,6 +63,7 @@ public class InterfaceBoardView extends FramePanel {
 		JButton bSolve = new JButton("Solve");
 		bSolve.addActionListener(e -> {
 			manager.getBoard().transferToPlayer();
+			manager.clearTurnStack();
 			boardComponent.repaint();
 		});
 

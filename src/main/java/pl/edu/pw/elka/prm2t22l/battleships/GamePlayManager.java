@@ -109,6 +109,10 @@ public class GamePlayManager {
 		return passedTime;
 	}
 
+	public void clearTurnStack() {
+		turns.clear();
+	}
+
 	public void turn(Location location, FieldState state) {
 		Field field = board.getPlayerBoard().getField(location);
 		FieldState previousState = field.getState();
