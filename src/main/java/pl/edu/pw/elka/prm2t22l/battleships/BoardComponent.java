@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 public class BoardComponent extends JPanel {
     private final GamePlayManager manager;
@@ -24,6 +25,22 @@ public class BoardComponent extends JPanel {
                 }
                 repaint();
             }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved( MouseEvent e ) {
+                Field field = getBoardRenderer().mapToField(e.getPoint());
+                if (field != null && !field.isImmutable()) {
+                    setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                } else {
+                    setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                }
+            }
         });
     }
 
@@ -36,9 +53,9 @@ public class BoardComponent extends JPanel {
     private void changeFieldState(Field field) {
         if (!field.isImmutable()) {
             switch (field.getState()) {
-                case EMPTY -> field.setState(FieldState.WATER);
-                case WATER -> field.setState(FieldState.BATTLESHIP);
-                case BATTLESHIP -> field.setState(FieldState.EMPTY);
+                case EMPTY -> manager.turn(field.getLocation(), FieldState.WATER);
+                case WATER -> manager.turn(field.getLocation(), FieldState.BATTLESHIP);
+                case BATTLESHIP -> manager.turn(field.getLocation(), FieldState.EMPTY);
             }
         }
     }

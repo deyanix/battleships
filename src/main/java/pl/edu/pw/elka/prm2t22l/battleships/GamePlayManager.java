@@ -22,6 +22,7 @@ public class GamePlayManager {
 	private final GameConfiguration configuration;
 	private final Stack<Turn> turns = new Stack<>();
 	private GameBoard board;
+	private GameHintManager hintManager;
 	private LocalDateTime startTime;
 	private Duration passedTime = Duration.ZERO;
 
@@ -48,6 +49,7 @@ public class GamePlayManager {
 				BoardRasterizer rasterizer = generator.getRasterizer();
 				rasterizer.setFillState(FieldState.WATER);
 				board = new GameBoard(rasterizer.rasterize());
+				hintManager = new GameHintManager(configuration, board);
 				showInitialFields();
 				return true;
 			}
@@ -56,23 +58,14 @@ public class GamePlayManager {
 	}
 
 	private void showInitialFields() {
-		Random random = new Random(configuration.getSeed());
-		List<Location> locations = new ArrayList<Location>();
-		int length = Math.min(configuration.getNumberOfVisibleFields(), board.getCapacity());
-		while (locations.size() < length) {
-			Location currentLocation = new Location(
-					random.nextInt(getBoard().getWidth()),
-					random.nextInt(getBoard().getHeight()));
-
-			if (!locations.contains(currentLocation)) {
-				Field computedField = getBoard().getComputedBoard().getField(currentLocation);
-				Field playerField = getBoard().getPlayerBoard().getField(currentLocation);
-				playerField.setState(computedField.getState());
-				playerField.setImmutable(true);
-
-				locations.add(currentLocation);
-			}
+		int amount = Math.min(configuration.getNumberOfVisibleFields(), board.getCapacity());
+		for (int i = 0; i < amount; i++) {
+			hintManager.nextHint();
 		}
+	}
+
+	public void nextHint() {
+		hintManager.nextHint();
 	}
 
 	public void start() {

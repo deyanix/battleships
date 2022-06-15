@@ -1,7 +1,6 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
 import pl.edu.pw.elka.prm2t22l.battleships.board.GameBoard;
-import pl.edu.pw.elka.prm2t22l.battleships.board.RasterBoard;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Field;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.FieldState;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
@@ -15,15 +14,23 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class BoardRenderer {
+    private static final Image WATER_IMAGE;
+
+    static {
+        try {
+            WATER_IMAGE = ImageIO.read(new File("src/main/resources/water-waves.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private final GameBoard board;
     private final Dimension size;
     private final int fieldSize;
-    private final Image waterImage;
     private final static float FIELD_PADDING = 0.15f;
     private final static float FIELD_ROUND = 0.25f;
 
     public BoardRenderer(GameBoard board, Dimension size) {
-        this.waterImage = new ImageIcon("src/main/resources/water-waves.png").getImage();
         this.board = board;
         this.size = size;
         this.fieldSize = calculateFieldSize();
@@ -54,7 +61,7 @@ public class BoardRenderer {
         for (Field field : board.getPlayerBoard()) {
             Point point = mapToImagePoint(field.getLocation());
             if (field.getState() == FieldState.WATER) {
-                g.drawImage(this.waterImage,
+                g.drawImage(WATER_IMAGE,
                         (int) (point.getX() + fieldSize * FIELD_PADDING / 2),
                         (int) (point.getY() + fieldSize * FIELD_PADDING / 2),
                         (int) (fieldSize * (1 - FIELD_PADDING)),

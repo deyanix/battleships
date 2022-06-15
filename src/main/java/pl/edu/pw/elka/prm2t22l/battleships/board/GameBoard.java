@@ -24,18 +24,17 @@ public class GameBoard extends AbstractBoard {
 		return playerBoard;
 	}
 
-	public List<Point> checkPlayerBoard(){
-		List<Point> wronglyPlaced = new ArrayList<>();
-
+	public List<Point> compareBoards() {
+		List<Point> differences = new ArrayList<>();
 		for (int i = 0; i < computedBoard.getHeight(); i++) {
 			for (int j = 0; j < computedBoard.getWidth(); j++) {
-				FieldState currentFieldsState = playerBoard.getField(i, j).getState();
-				if (currentFieldsState != computedBoard.getField(i, j).getState()){
-						wronglyPlaced.add(new Point(i, j));
+				FieldState currentState = playerBoard.getField(i, j).getState();
+				FieldState computedState = computedBoard.getField(i, j).getState();
+				if (currentState != computedState){
+					differences.add(new Point(i, j));
 				}
 			}
 		}
-
-		return wronglyPlaced;
+		return differences;
 	}
 }

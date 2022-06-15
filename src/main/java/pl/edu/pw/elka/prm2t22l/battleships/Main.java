@@ -14,7 +14,7 @@ public class Main {
 		configuration.setShipAmount(ShipType.LONG, 1);
 		configuration.setShipAmount(ShipType.MEDIUM, 2);
 		configuration.setShipAmount(ShipType.SHORT, 3);
-		configuration.setNumberOfVisibleFields(123);
+		configuration.setNumberOfVisibleFields(4);
 		configuration.setSeed(10);
 		GamePlayManager manager = new GamePlayManager(configuration);
 		manager.createBoard();
