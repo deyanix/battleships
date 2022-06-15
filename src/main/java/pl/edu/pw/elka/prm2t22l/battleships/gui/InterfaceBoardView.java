@@ -74,7 +74,13 @@ public class InterfaceBoardView extends FramePanel {
 
 		JButton bCheck = new JButton("Check");
 		bCheck.addActionListener(e -> {
-			List<Location> differenes = manager.getBoard().compareBoards();
+			List<Location> differences = manager.getBoard().compareBoards();
+			if (differences.size() == 0) {
+				JOptionPane.showMessageDialog(this,
+						"No problems",
+						"Congratulation!",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
 		});
 		JButton bSaveProgress = new JButton("Save");
 		JButton bExitToMm = new JButton("Exit");
