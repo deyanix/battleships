@@ -1,8 +1,8 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
-import pl.edu.pw.elka.prm2t22l.battleships.board.Board;
-import pl.edu.pw.elka.prm2t22l.battleships.board.Field;
-import pl.edu.pw.elka.prm2t22l.battleships.board.FieldState;
+import pl.edu.pw.elka.prm2t22l.battleships.board.RasterBoard;
+import pl.edu.pw.elka.prm2t22l.battleships.entity.Field;
+import pl.edu.pw.elka.prm2t22l.battleships.entity.FieldState;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
 
 import java.time.Duration;
@@ -10,16 +10,16 @@ import java.time.LocalDateTime;
 import java.util.Stack;
 
 public class GamePlayManager {
-	private final Board board;
+	private final RasterBoard board;
 	private final Stack<Turn> turns = new Stack<>();
 	private LocalDateTime startTime;
 	private Duration passedTime = Duration.ZERO;
 
-	public GamePlayManager(Board board) {
+	public GamePlayManager(RasterBoard board) {
 		this.board = board;
 	}
 
-	public Board getBoard() {
+	public RasterBoard getBoard() {
 		return board;
 	}
 

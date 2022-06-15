@@ -1,17 +1,15 @@
 package pl.edu.pw.elka.prm2t22l.battleships.board;
 
+import pl.edu.pw.elka.prm2t22l.battleships.entity.Field;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
 
 import java.util.stream.IntStream;
 
-public class Board {
-	private final int width;
-	private final int height;
+public class RasterBoard extends AbstractBoard {
 	private final Field[][] fields;
 
-	public Board(int width, int height) {
-		this.width = width;
-		this.height = height;
+	public RasterBoard(int width, int height) {
+		super(width, height);
 		this.fields = generateFields(width, height);
 	}
 
@@ -21,14 +19,6 @@ public class Board {
 					.mapToObj(x -> new Field(this, x, y))
 					.toArray(Field[]::new))
 				.toArray(Field[][]::new);
-	}
-
-	public int getWidth() {
-		return width;
-	}
-
-	public int getHeight() {
-		return height;
 	}
 
 	public Field[][] getFields() {
