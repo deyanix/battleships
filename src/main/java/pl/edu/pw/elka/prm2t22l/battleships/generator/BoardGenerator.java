@@ -2,13 +2,13 @@ package pl.edu.pw.elka.prm2t22l.battleships.generator;
 
 import pl.edu.pw.elka.prm2t22l.battleships.GameConfiguration;
 import pl.edu.pw.elka.prm2t22l.battleships.board.BoardRasterizer;
+import pl.edu.pw.elka.prm2t22l.battleships.board.RasterBoard;
 import pl.edu.pw.elka.prm2t22l.battleships.board.VectorBoard;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Orientation;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Ship;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.ShipType;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -36,12 +36,12 @@ public class BoardGenerator {
 		}
 	}
 
-	public VectorBoard getBoard() {
+	public VectorBoard getVectorBoard() {
 		return board;
 	}
 
-	public int getRandomInt(int min, int max) {
-		return random.nextInt(min, max+1);
+	public RasterBoard getRasterBoard() {
+		return rasterizer.rasterize();
 	}
 
 	public Orientation getRandomOrientation() {
@@ -84,9 +84,24 @@ public class BoardGenerator {
 		}
 	}
 
-	public boolean allocateShip(ShipType type) {
+	public Ship insertShip(ShipType type, Location location, Orientation orientation) {
+		Ship ship = new Ship(type, location, orientation);
+		if (this.validateShip(ship)) {
+			this.placeShip(ship);
+			return ship;
+		}
+
+		ship = new Ship(type, location, orientation.invert());
+		if (this.validateShip(ship)) {
+			this.placeShip(ship);
+			return ship;
+		}
+		return null;
+	}
+
+	public Ship allocateShip(ShipType type) {
 		if (emptyLocations.isEmpty()) {
-			return false;
+			return null;
 		}
 
 		int startLocationIndex = getRandomLocationIndex();
@@ -95,30 +110,22 @@ public class BoardGenerator {
 		int locationIndex = startLocationIndex;
 		do {
 			Location location = emptyLocations.get(locationIndex);
-			Ship ship = new Ship(type, location, orientation);
-			if (this.validateShip(ship)) {
-				this.placeShip(ship);
-				return true;
+			Ship ship = insertShip(type, location, orientation);
+			if (ship != null) {
+				return ship;
 			}
-
-			ship = new Ship(type, location, orientation.invert());
-			if (this.validateShip(ship)) {
-				this.placeShip(ship);
-				return true;
-			}
-
 
 			if (++locationIndex >= emptyLocations.size()) {
 				locationIndex = 0;
 			}
 		} while (locationIndex != startLocationIndex);
-		return false;
+		return null;
 	}
 
 	public boolean generate() {
 		for (ShipType type : ShipType.values()) {
 			for (int i = 0; i < configuration.getShipAmount(type); i++) {
-				if (!allocateShip(type)) {
+				if (allocateShip(type) == null) {
 					return false;
 				}
 			}
