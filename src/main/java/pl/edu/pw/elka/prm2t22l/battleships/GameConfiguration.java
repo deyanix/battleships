@@ -4,19 +4,51 @@ import pl.edu.pw.elka.prm2t22l.battleships.entity.ShipType;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 
 import static java.lang.Long.parseLong;
 
 public class GameConfiguration {
     public static GameConfiguration getEasyConfiguration(){
-        return new GameConfiguration(6, 6, 10, 10, true);
+        GameConfiguration easyConfiguration = new GameConfiguration();
+        easyConfiguration.setBoardWidth(6);
+        easyConfiguration.setBoardHeight(6);
+        easyConfiguration.setNumberOfStartingHints(8);
+        easyConfiguration.setNumberOfHints(4);
+        easyConfiguration.setUndoesAvailable(true);
+
+        //Ships
+        easyConfiguration.setShipAmount(ShipType.SHORT, 3);
+        easyConfiguration.setShipAmount(ShipType.MEDIUM, 2);
+        easyConfiguration.setShipAmount(ShipType.LONG, 1);
+        return easyConfiguration;
     }
     public static GameConfiguration getMediumConfiguration() {
-        return new GameConfiguration(8, 8, 8, 4, true);
+        GameConfiguration mediumConfiguration = new GameConfiguration();
+        mediumConfiguration.setBoardWidth(8);
+        mediumConfiguration.setBoardHeight(8);
+        mediumConfiguration.setNumberOfStartingHints(6);
+        mediumConfiguration.setNumberOfHints(2);
+        mediumConfiguration.setUndoesAvailable(true);
+
+        //Ships
+        mediumConfiguration.setShipAmount(ShipType.SHORT, 4);
+        mediumConfiguration.setShipAmount(ShipType.MEDIUM, 3);
+        mediumConfiguration.setShipAmount(ShipType.LONG, 2);
+        return mediumConfiguration;
     }
     public static GameConfiguration getHardConfiguration(){
-        return new GameConfiguration(10, 10, 4, 2, false);
+        GameConfiguration mediumConfiguration = new GameConfiguration();
+        mediumConfiguration.setBoardWidth(10);
+        mediumConfiguration.setBoardHeight(10);
+        mediumConfiguration.setNumberOfStartingHints(4);
+        mediumConfiguration.setNumberOfHints(1);
+        mediumConfiguration.setUndoesAvailable(false);
+
+        //Ships
+        mediumConfiguration.setShipAmount(ShipType.SHORT, 5);
+        mediumConfiguration.setShipAmount(ShipType.MEDIUM, 3);
+        mediumConfiguration.setShipAmount(ShipType.LONG, 2);
+        return mediumConfiguration;
     }
 
     private final Map<ShipType, Integer> shipsAmounts = new HashMap<>();
@@ -29,14 +61,6 @@ public class GameConfiguration {
 
     public GameConfiguration() { }
     ;
-    public GameConfiguration(int boardWidth, int boardHeight, int numberOfStartingHints, int numberOfHints, boolean undoesAvailable) {
-        this.boardWidth = boardWidth;
-        this.boardHeight = boardHeight;
-        this.numberOfStartingHints = numberOfStartingHints;
-        this.numberOfHints = numberOfHints;
-        this.undoesAvailable = undoesAvailable;
-        this.seed = ThreadLocalRandom.current().nextLong();
-    }
 
     public void setShipAmount(ShipType type, int amount) {
         shipsAmounts.put(type, amount);
