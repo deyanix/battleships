@@ -14,7 +14,7 @@ public class InterfaceConfigWindow extends FramePanel {
     JPanel pCustomConfig;
 
     public int diggicultyLevel = 2;         //będzie zapisywać poziom trudności (od 0 do 4, gdzie 0 to custom)
-    public boolean focusability = true; //zmienia możliwość zaznaczenia RadioButtonów
+    public boolean focusability = true;     //zmienia możliwość zaznaczenia RadioButtonów
 
     public InterfaceConfigWindow() throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
