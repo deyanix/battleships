@@ -55,12 +55,12 @@ public class GamePlayManager {
 	private void showInitialFields() {
 		int amount = Math.min(configuration.getNumberOfStartingHints(), board.getCapacity());
 		for (int i = 0; i < amount; i++) {
-			hintManager.nextHint();
+			hintManager.nextHint(false);
 		}
 	}
 
-	public void nextHint() {
-		hintManager.nextHint();
+	public boolean nextHint() {
+		return hintManager.nextHint(true);
 	}
 
 	public void start() {

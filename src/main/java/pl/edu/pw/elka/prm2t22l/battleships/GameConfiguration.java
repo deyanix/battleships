@@ -51,20 +51,20 @@ public class GameConfiguration {
         this.numberOfStartingHints = numberOfStartingHints;
     }
 
-    public int getNumberOfAvailableUndoes() {
+    public int getNumberOfHints() {
         return numberOfHints;
     }
 
-    public void setNumberOfAvailableUndoes(int numberOfAvailableUndoes) {
-        this.numberOfHints = numberOfAvailableUndoes;
+    public void setNumberOfHints(int numberOfHints) {
+        this.numberOfHints = numberOfHints;
     }
 
-    public boolean isHintsAvailable() {
+    public boolean isUndoesAvailable() {
         return undoesAvailable;
     }
 
-    public void setHintsAvailable(boolean hintsAvailable) {
-        this.undoesAvailable = hintsAvailable;
+    public void setUndoesAvailable(boolean undoesAvailable) {
+        this.undoesAvailable = undoesAvailable;
     }
 
     public long getSeed() {

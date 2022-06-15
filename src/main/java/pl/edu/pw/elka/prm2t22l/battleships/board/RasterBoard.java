@@ -4,6 +4,7 @@ import pl.edu.pw.elka.prm2t22l.battleships.entity.Field;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.FieldState;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.stream.IntStream;
 
