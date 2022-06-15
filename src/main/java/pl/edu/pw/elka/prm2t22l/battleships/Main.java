@@ -2,6 +2,7 @@ package pl.edu.pw.elka.prm2t22l.battleships;
 
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.ShipType;
+import pl.edu.pw.elka.prm2t22l.battleships.filemanager.SaveFileManager;
 import pl.edu.pw.elka.prm2t22l.battleships.generator.BoardGenerator;
 
 import javax.swing.*;
