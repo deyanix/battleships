@@ -165,6 +165,7 @@ public class InterfaceConfigWindow extends FramePanel {
         lSkipsNum.setBounds(132,90,98,15);
         pCustomConfig.add(sSkipsNum);
         //LICZBA DOZWOLONYCH COFNIEC
+        /*
         JSlider sWithdrawalsNum = new JSlider(JSlider.HORIZONTAL,0,10,2);
         sWithdrawalsNum.setMinorTickSpacing(1);
         sWithdrawalsNum.setMajorTickSpacing(2);
@@ -174,6 +175,11 @@ public class InterfaceConfigWindow extends FramePanel {
         sWithdrawalsNum.setBounds(240,105,100,40);
         lWithdrawalsNum.setBounds(242,90,120,15);
         pCustomConfig.add(sWithdrawalsNum);
+         */
+        JCheckBox cbPossibleUndos = new JCheckBox("Possible Undos");
+        cbPossibleUndos.setFocusable(false);
+        cbPossibleUndos.setBounds(245,100,100,40);
+        pCustomConfig.add(cbPossibleUndos);
 
         //LICZBA STATKÓW I
         JSlider sSmallShips = new JSlider(JSlider.HORIZONTAL,0,10,4);
