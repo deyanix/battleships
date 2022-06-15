@@ -44,7 +44,6 @@ public class RasterBoard extends AbstractBoard implements Iterable<Field> {
 			System.out.println();
 		}
 	}
-
 	@Override
 	public Iterator<Field> iterator() {
 		return new BoardIterator(this);
