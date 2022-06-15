@@ -94,6 +94,25 @@ public class InterfaceConfigWindow extends FramePanel {
         });
 
         JTextField tfSeedPlace = new JTextField("Seed Place:", 20);
+        tfSeedPlace.setForeground(Color.GRAY);
+        tfSeedPlace.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (tfSeedPlace.getText().equals("Seed Place:")) {
+                    tfSeedPlace.setText("");
+                    tfSeedPlace.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (tfSeedPlace.getText().isEmpty()) {
+                    tfSeedPlace.setForeground(Color.GRAY);
+                    tfSeedPlace.setText("Seed Place:");
+                }
+
+            }
+        });
         tfSeedPlace.setBounds(30,170,150,20);
 
         pDifficultyConfig.add(lSelectDiffLvl);
