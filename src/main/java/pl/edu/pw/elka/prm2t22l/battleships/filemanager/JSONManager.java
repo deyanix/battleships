@@ -7,7 +7,7 @@ import pl.edu.pw.elka.prm2t22l.battleships.entity.Field;
 
 public class JSONManager {
 
-    private JSONObject jObject;
+    private final JSONObject jObject;
 
     JSONManager() {
         this.jObject = new JSONObject();
@@ -23,6 +23,14 @@ public class JSONManager {
             jArray.put(element);
         }
         return jArray;
+    }
+
+    public JSONArray shipsToJsonArray(JSONObject shortShip, JSONObject mediumShip, JSONObject longShip) {
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.put(shortShip);
+        jsonArray.put(mediumShip);
+        jsonArray.put(longShip);
+        return jsonArray;
     }
 
     public JSONArray toJsonArray(Field[][] fields) {
