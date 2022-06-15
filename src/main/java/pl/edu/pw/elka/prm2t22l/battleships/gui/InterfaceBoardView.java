@@ -60,6 +60,11 @@ public class InterfaceBoardView extends FramePanel {
 						JOptionPane.ERROR_MESSAGE);
 			}
 		});
+		JButton bSolve = new JButton("Solve");
+		bSolve.addActionListener(e -> {
+			manager.getBoard().transferToPlayer();
+			boardComponent.repaint();
+		});
 
 		JButton bCheck = new JButton("Check");
 		bCheck.addActionListener(e -> {
@@ -92,8 +97,13 @@ public class InterfaceBoardView extends FramePanel {
 		bSaveProgress.setFocusable(false);
 		bExitToMm.setFocusable(false);
 
+		TimeComponent timeComponent = new TimeComponent(manager);
+		timeComponent.setBounds(5, 110, 75, 20);
+		pButtonsPlaceSide.add(timeComponent);
+
 		bSolution.setBounds(5, 10, 75, 20);
 		bUndoMove.setBounds(5, 40, 75, 20);
+		bSolve.setBounds(5, 70, 75, 20);
 		bCheck.setBounds(5, 470, 75, 20);
 		bSaveProgress.setBounds(5, 500, 75, 20);
 		bExitToMm.setBounds(5, 530, 75, 20);
@@ -114,6 +124,7 @@ public class InterfaceBoardView extends FramePanel {
 		pButtonsPlaceSide.add(bSolution);
 		pButtonsPlaceSide.add(bCheck);
 		pButtonsPlaceSide.add(bUndoMove);
+		pButtonsPlaceSide.add(bSolve);
 		pButtonsPlaceSide.setVisible(true);
 
 		add(pBoardPlace);
