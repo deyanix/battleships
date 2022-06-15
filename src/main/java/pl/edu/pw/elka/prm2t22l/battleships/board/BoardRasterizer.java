@@ -1,5 +1,6 @@
 package pl.edu.pw.elka.prm2t22l.battleships.board;
 
+import pl.edu.pw.elka.prm2t22l.battleships.entity.FieldState;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Orientation;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Ship;
@@ -15,6 +16,17 @@ public class BoardRasterizer {
 
 	public BoardRasterizer(VectorBoard board) {
 		this.board = board;
+	}
+
+	public RasterBoard rasterize() {
+		RasterBoard rasterBoard = new RasterBoard(board.getWidth(), board.getHeight());
+		for (Ship ship : board.getShips()) {
+			System.out.println(ship);
+			for (Location location : getShipLocations(ship, RASTERIZE_SHIP)) {
+				rasterBoard.getField(location).setState(FieldState.BATTLESHIP);
+			}
+		}
+		return rasterBoard;
 	}
 
 	public Location[] getShipLocations(Ship ship, int rasterizeFlag) {
