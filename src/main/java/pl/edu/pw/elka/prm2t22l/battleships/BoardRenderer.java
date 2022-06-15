@@ -1,8 +1,8 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
-import pl.edu.pw.elka.prm2t22l.battleships.board.Board;
-import pl.edu.pw.elka.prm2t22l.battleships.board.Field;
-import pl.edu.pw.elka.prm2t22l.battleships.board.FieldState;
+import pl.edu.pw.elka.prm2t22l.battleships.board.RasterBoard;
+import pl.edu.pw.elka.prm2t22l.battleships.entity.Field;
+import pl.edu.pw.elka.prm2t22l.battleships.entity.FieldState;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
 
 import java.awt.*;
@@ -14,26 +14,25 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class BoardRenderer {
-    private final Board board;
+    private final RasterBoard board;
     private final Dimension size;
     private final int fieldSize;
     private final Image waterImage;
-    //private final Image battleshipImage;
-    private final static int IMAGE_SIZE_CONTROLER = 30;
+    private final static float FIELD_PADDING = 0.15f;
+    private final static float FIELD_ROUND = 0.25f;
 
-    public BoardRenderer(Board board, Dimension size) {
+    public BoardRenderer(RasterBoard board, Dimension size) {
         this.waterImage = new ImageIcon("src/main/resources/water-waves.png").getImage();
-        //this.battleshipImage = new ImageIcon("src/main/resources/battleship-prototype3.jpg").getImage();
         this.board = board;
         this.size = size;
         this.fieldSize = calculateFieldSize();
     }
 
-    public BoardRenderer(Board board, int width, int height) {
+    public BoardRenderer(RasterBoard board, int width, int height) {
         this(board, new Dimension(width, height));
     }
 
-    public BoardRenderer(Board board) {
+    public BoardRenderer(RasterBoard board) {
         this(board, new Dimension((board.getWidth()+1) * 50, (board.getHeight()+1) * 50));
     }
 
@@ -56,13 +55,20 @@ public class BoardRenderer {
             Point point = mapToImagePoint(field.getLocation());
             if (field.getState() == FieldState.WATER) {
                 g.drawImage(this.waterImage,
-                        (int) point.getX() + IMAGE_SIZE_CONTROLER/2, (int) point.getY() + IMAGE_SIZE_CONTROLER/2,
-                        fieldSize - IMAGE_SIZE_CONTROLER, fieldSize - IMAGE_SIZE_CONTROLER,null);
+                        (int) (point.getX() + fieldSize * FIELD_PADDING / 2),
+                        (int) (point.getY() + fieldSize * FIELD_PADDING / 2),
+                        (int) (fieldSize * (1 - FIELD_PADDING)),
+                        (int) (fieldSize * (1 - FIELD_PADDING)),
+                        null);
             } else if(field.getState() == FieldState.BATTLESHIP) {
                 g.setColor(Color.BLACK);
-                g.fillRoundRect((int) point.getX() + IMAGE_SIZE_CONTROLER/2, (int) point.getY() + IMAGE_SIZE_CONTROLER/2,
-                        fieldSize - IMAGE_SIZE_CONTROLER,
-                        fieldSize - IMAGE_SIZE_CONTROLER,50,50);
+                g.fillRoundRect(
+                        (int) (point.getX() + fieldSize * FIELD_PADDING / 2),
+                        (int) (point.getY() + fieldSize * FIELD_PADDING / 2),
+                        (int) (fieldSize * (1 - FIELD_PADDING)),
+                        (int) (fieldSize * (1 - FIELD_PADDING)),
+                        (int) (fieldSize * FIELD_ROUND),
+                        (int) (fieldSize * FIELD_ROUND));
             }
 
             g.setColor(Color.BLACK);

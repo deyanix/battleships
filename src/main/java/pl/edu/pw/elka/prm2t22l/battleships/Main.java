@@ -3,6 +3,7 @@ package pl.edu.pw.elka.prm2t22l.battleships;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.ShipType;
 import pl.edu.pw.elka.prm2t22l.battleships.generator.BoardGenerator;
 
+import javax.swing.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
@@ -16,7 +17,12 @@ public class Main {
 
 		BoardGenerator generator = new BoardGenerator(configuration);
 		generator.generate();
-		generator.getRasterBoard().display();
+
+		JFrame frame = new JFrame();
+		frame.setSize(600,600);
+		frame.setContentPane(new BoardComponent(generator.getRasterBoard()));
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
 	}
 
 }

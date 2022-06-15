@@ -7,8 +7,6 @@ import java.util.Iterator;
 import java.util.stream.IntStream;
 
 public class RasterBoard extends AbstractBoard implements Iterable<Field> {
-	private final int width;
-	private final int height;
 	private final Field[][] fields;
 
 	public RasterBoard(int width, int height) {
@@ -29,7 +27,7 @@ public class RasterBoard extends AbstractBoard implements Iterable<Field> {
 	}
 
 	public Field getField(int x, int y) {
-		if (hasField(x, y)) {
+		if (isLocationAvailable(x, y)) {
 			return fields[y][x];
 		}
 		return null;

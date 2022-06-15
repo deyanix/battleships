@@ -1,20 +1,20 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
-import pl.edu.pw.elka.prm2t22l.battleships.board.Board;
-import pl.edu.pw.elka.prm2t22l.battleships.board.Field;
-import pl.edu.pw.elka.prm2t22l.battleships.board.FieldState;
-import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
+import pl.edu.pw.elka.prm2t22l.battleships.board.RasterBoard;
+import pl.edu.pw.elka.prm2t22l.battleships.entity.Field;
+import pl.edu.pw.elka.prm2t22l.battleships.entity.FieldState;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.Raster;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BoardComponent extends JPanel {
-    private final Board board;
+    private final RasterBoard board;
 
     private void changeFieldState(Field field) {
         if(field.getState() == FieldState.EMPTY) field.setState(FieldState.WATER);
@@ -22,7 +22,7 @@ public class BoardComponent extends JPanel {
         else field.setState(FieldState.EMPTY);
     }
 
-    public BoardComponent(Board board) {
+    public BoardComponent(RasterBoard board) {
         this.board = board;
 
         setSize(new Dimension(1200, 1200));
