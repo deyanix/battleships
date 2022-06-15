@@ -19,29 +19,18 @@ import java.util.List;
 
 public class InterfaceBoardView extends FramePanel {
 	private final GamePlayManager manager;
-
-	public InterfaceBoardView() {
+	public InterfaceBoardView(GamePlayManager manager) {
+		this.manager = manager;
 //------BOARD-PLACE-------------------------------------
 		JPanel pBoardPlace = new JPanel();
 		pBoardPlace.setBounds(0, 0, 500, 600);
-
-		GameConfiguration configuration = new GameConfiguration();
-		configuration.setBoardSize(6, 6);
-		configuration.setShipAmount(ShipType.LONG, 1);
-		configuration.setShipAmount(ShipType.MEDIUM, 2);
-		configuration.setShipAmount(ShipType.SHORT, 1);
-		configuration.setNumberOfStartingHints(4);
-		configuration.setNumberOfHints(4);
-		configuration.setSeed(2);
-		configuration.setUndoesAvailable(false);
-		manager = new GamePlayManager(configuration);
-		manager.createBoard();
 
 		BoardComponent boardComponent = new BoardComponent(manager);
 		boardComponent.setBounds(0, 0, 500, 500);
 		pBoardPlace.setLayout(new GridLayout());
 		pBoardPlace.add(boardComponent);
 		pBoardPlace.setVisible(true);
+
 //------PANEL-Z-PRZYCISKAMI-----------------------------
 		JPanel pButtonsPlaceSide = new JPanel();
 		pButtonsPlaceSide.setBounds(500, 0, 100, 600);
@@ -49,7 +38,7 @@ public class InterfaceBoardView extends FramePanel {
 
 		JButton bSolution = new JButton("Solution");
 		bSolution.addActionListener(e -> {
-			if (manager.nextHint()) {
+			if (this.manager.nextHint()) {
 				boardComponent.repaint();
 			} else {
 				JOptionPane.showMessageDialog(this,
@@ -60,9 +49,9 @@ public class InterfaceBoardView extends FramePanel {
 		});
 
 		JButton bUndoMove = new JButton("Undo");
-		bUndoMove.setEnabled(configuration.isUndoesAvailable());
+		bUndoMove.setEnabled(manager.getConfiguration().isUndoesAvailable());
 		bUndoMove.addActionListener(e -> {
-			if (manager.rollbackTurn()) {
+			if (this.manager.rollbackTurn()) {
 				boardComponent.repaint();
 			} else {
 				JOptionPane.showMessageDialog(this,
@@ -74,12 +63,17 @@ public class InterfaceBoardView extends FramePanel {
 
 		JButton bCheck = new JButton("Check");
 		bCheck.addActionListener(e -> {
-			List<Location> differences = manager.getBoard().compareBoards();
+			List<Location> differences = this.manager.getBoard().compareBoards();
 			if (differences.size() == 0) {
 				JOptionPane.showMessageDialog(this,
 						"No problems",
 						"Congratulation!",
 						JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(this,
+						"You have " + differences.size() + " problem(s)",
+						"Errors",
+						JOptionPane.ERROR_MESSAGE);
 			}
 		});
 		JButton bSaveProgress = new JButton("Save");
@@ -96,24 +90,14 @@ public class InterfaceBoardView extends FramePanel {
 		bSaveProgress.setBounds(5, 500, 75, 20);
 		bExitToMm.setBounds(5, 530, 75, 20);
 
-		bExitToMm.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				changePanel(1);
-			}
-		});
+		bExitToMm.addActionListener(e -> changePanel(1));
 
 		JPanel pIconPlace = new JPanel();
 		pIconPlace.setSize(100, 100);
 		pIconPlace.setBounds(0, 230, 100, 100);
 
-		try {
-			BufferedImage iLogo = ImageIO.read(new File("src\\main\\resources\\mini_logo.png"));
-			JLabel lBattleshipLogo = new JLabel(new ImageIcon(iLogo));
-			pIconPlace.add(lBattleshipLogo);
-		} catch (IOException e) {
-		}
-
+		JLabel lBattleshipLogo = new JLabel(new ImageIcon("src\\main\\resources\\mini_logo.png"));
+		pIconPlace.add(lBattleshipLogo);
 		pIconPlace.setVisible(true);
 
 		pButtonsPlaceSide.add(pIconPlace);
@@ -122,9 +106,7 @@ public class InterfaceBoardView extends FramePanel {
 		pButtonsPlaceSide.add(bSolution);
 		pButtonsPlaceSide.add(bCheck);
 		pButtonsPlaceSide.add(bUndoMove);
-
 		pButtonsPlaceSide.setVisible(true);
-//------------------------------------------------------
 
 		add(pBoardPlace);
 		add(pButtonsPlaceSide);

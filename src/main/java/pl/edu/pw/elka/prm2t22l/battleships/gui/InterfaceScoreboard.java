@@ -16,24 +16,14 @@ public class InterfaceScoreboard extends FramePanel{
         pIconPlace.setSize(600,600);
         pIconPlace.setBounds(0,0,600,400);
 
-        try {
-            BufferedImage iLogo = ImageIO.read(new File("src\\main\\resources\\important.png"));
-            JLabel lBattleshipLogo = new JLabel(new ImageIcon(iLogo));
-            pIconPlace.add(lBattleshipLogo);
-        } catch (IOException e){}
-
+        JLabel lBattleshipLogo = new JLabel(new ImageIcon("src\\main\\resources\\important.png"));
+        pIconPlace.add(lBattleshipLogo);
         pIconPlace.setVisible(true);
 
         JButton bBack = new JButton("Back");
         bBack.setFocusable(false);
         bBack.setBounds(435,480,120,50);
-        bBack.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                changePanel(1);
-            }
-        });
-
+        bBack.addActionListener(e -> changePanel(1));
 
         add(pIconPlace);
         add(bBack);

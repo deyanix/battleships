@@ -27,6 +27,17 @@ public class GameConfiguration {
     private boolean undoesAvailable;
     private long seed;
 
+    public GameConfiguration() { }
+    ;
+    public GameConfiguration(int boardWidth, int boardHeight, int numberOfStartingHints, int numberOfHints, boolean undoesAvailable) {
+        this.boardWidth = boardWidth;
+        this.boardHeight = boardHeight;
+        this.numberOfStartingHints = numberOfStartingHints;
+        this.numberOfHints = numberOfHints;
+        this.undoesAvailable = undoesAvailable;
+        this.seed = ThreadLocalRandom.current().nextLong();
+    }
+
     public void setShipAmount(ShipType type, int amount) {
         shipsAmounts.put(type, amount);
     }
@@ -88,25 +99,12 @@ public class GameConfiguration {
         this.seed = seed;
     }
 
-    public boolean checkSeed(String seedToBeChecked){
+    public boolean setSeedText(String seedToBeChecked){
         try{
             setSeed(parseLong(seedToBeChecked));
-        }
-        catch (NumberFormatException e){
+            return true;
+        } catch (NumberFormatException e){
             return false;
         }
-        return true;
-    }
-    public void printOutConfiguration(){
-        System.out.println(getBoardHeight() + ":" + getBoardWidth());
-    }
-    public GameConfiguration(){};
-    public GameConfiguration(int boardWidth, int boardHeight, int numberOfStartingHints, int numberOfHints, boolean undoesAvailable) {
-        this.boardWidth = boardWidth;
-        this.boardHeight = boardHeight;
-        this.numberOfStartingHints = numberOfStartingHints;
-        this.numberOfHints = numberOfHints;
-        this.undoesAvailable = undoesAvailable;
-        this.seed = ThreadLocalRandom.current().nextLong();
     }
 }
