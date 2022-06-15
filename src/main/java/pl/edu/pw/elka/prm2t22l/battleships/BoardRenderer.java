@@ -58,11 +58,7 @@ public class BoardRenderer {
                 g.drawImage(this.waterImage,
                         (int) point.getX() + IMAGE_SIZE_CONTROLER/2, (int) point.getY() + IMAGE_SIZE_CONTROLER/2,
                         fieldSize - IMAGE_SIZE_CONTROLER, fieldSize - IMAGE_SIZE_CONTROLER,null);
-                //g.setColor(Color.BLUE);
-                //g.fillRect((int) point.getX(), (int) point.getY(), fieldSize, fieldSize);
-
             } else if(field.getState() == FieldState.BATTLESHIP) {
-                //g.drawImage(this.battleshipImage, (int) point.getX() + IMAGE_SIZE_CONTROLER/2, (int) point.getY() + IMAGE_SIZE_CONTROLER/2, fieldSize - IMAGE_SIZE_CONTROLER, fieldSize - IMAGE_SIZE_CONTROLER,null);
                 g.setColor(Color.BLACK);
                 g.fillRoundRect((int) point.getX() + IMAGE_SIZE_CONTROLER/2, (int) point.getY() + IMAGE_SIZE_CONTROLER/2,
                         fieldSize - IMAGE_SIZE_CONTROLER,
