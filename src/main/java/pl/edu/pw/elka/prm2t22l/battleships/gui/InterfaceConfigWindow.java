@@ -13,6 +13,21 @@ import static java.lang.Long.parseLong;
 
 public class InterfaceConfigWindow extends FramePanel {
 
+    private JSlider sWidthX = new JSlider(JSlider.HORIZONTAL,4,10,6);
+    private JSlider sHightY = new JSlider(JSlider.HORIZONTAL,4,10,6);
+    private JSlider sVisibleFieldsNum = new JSlider(JSlider.HORIZONTAL,0,10,2);
+    private JSlider sSkipsNum = new JSlider(JSlider.HORIZONTAL,1,10,2);
+    private JCheckBox cbPossibleUndos = new JCheckBox("Possible Undos");
+    private JSlider sSmallShips = new JSlider(JSlider.HORIZONTAL,0,10,4);
+    private JSlider sMediumShips = new JSlider(JSlider.HORIZONTAL,0,10,3);
+    private JSlider sLargeShips = new JSlider(JSlider.HORIZONTAL,0,10,2);
+    private JTextField tfSeedPlace = new JTextField("Seed Place:", 20);
+    private JRadioButton rbDifficultyEasy = new JRadioButton(" Easy ");
+    private JRadioButton rbDifficultyNormal = new JRadioButton(" Normal ");
+    private JRadioButton rbDifficultyHard = new JRadioButton(" Hard ");
+    private JRadioButton rbCustomMode = new JRadioButton(" Custom Mode ");
+
+
     private JPanel pCustomConfig;
 
     public InterfaceConfigWindow() {
@@ -39,7 +54,7 @@ public class InterfaceConfigWindow extends FramePanel {
             pCustomConfig.setVisible(false);
         });
 
-        JRadioButton rbDifficultyNormal = new JRadioButton(" Normal ");
+
         rbDifficultyNormal.setBounds(25,50,150,25);
         rbDifficultyNormal.setFocusable(false);
         rbDifficultyNormal.setSelected(true);
@@ -47,14 +62,14 @@ public class InterfaceConfigWindow extends FramePanel {
             pCustomConfig.setVisible(false);
         });
 
-        JRadioButton rbDifficultyHard = new JRadioButton(" Hard ");
+
         rbDifficultyHard.setBounds(25,75,150,25);
         rbDifficultyHard.setFocusable(false);
         rbDifficultyHard.addItemListener(e -> {
             pCustomConfig.setVisible(false);
         });
 
-        JRadioButton rbCustomMode = new JRadioButton(" Custom Mode ");
+
         rbCustomMode.setBounds(20,110,150,25);
         rbCustomMode.setFocusable(false);
         rbCustomMode.addItemListener(e -> {
@@ -63,7 +78,7 @@ public class InterfaceConfigWindow extends FramePanel {
             pCustomConfig.setVisible(true);
         });
 
-        JTextField tfSeedPlace = new JTextField("Seed Place:", 20);
+
         tfSeedPlace.setForeground(Color.GRAY);
         tfSeedPlace.addFocusListener(new FocusListener() {
             @Override
@@ -113,7 +128,7 @@ public class InterfaceConfigWindow extends FramePanel {
         JLabel lNumberOfShips = new JLabel("Number of Ships:");
 
         //SZEROKOŚĆ PLANSZY (OX)
-        JSlider sWidthX = new JSlider(JSlider.HORIZONTAL,4,10,6);
+
         sWidthX.setMinorTickSpacing(1);
         sWidthX.setMajorTickSpacing(2);
         sWidthX.setPaintTicks(true);
@@ -123,7 +138,7 @@ public class InterfaceConfigWindow extends FramePanel {
         lWidthX.setBounds(43,0,128,15);
         pCustomConfig.add(sWidthX);
         //WYSOKOŚĆ PLANSZY (OY)
-        JSlider sHightY = new JSlider(JSlider.HORIZONTAL,4,10,6);
+
         sHightY.setMinorTickSpacing(1);
         sHightY.setMajorTickSpacing(2);
         sHightY.setPaintTicks(true);
@@ -133,7 +148,7 @@ public class InterfaceConfigWindow extends FramePanel {
         lHightY.setBounds(193,0,128,15);
         pCustomConfig.add(sHightY);
         //LICZBA PODPOWIEDZI
-        JSlider sVisibleFieldsNum = new JSlider(JSlider.HORIZONTAL,0,10,2);
+
         sVisibleFieldsNum.setMinorTickSpacing(1);
         sVisibleFieldsNum.setMajorTickSpacing(2);
         sVisibleFieldsNum.setPaintTicks(true);
@@ -143,7 +158,7 @@ public class InterfaceConfigWindow extends FramePanel {
         lVisibleFieldsNum.setBounds(22,90,98,15);
         pCustomConfig.add(sVisibleFieldsNum);
         //LICZBA PODPOWIEDZI STARTOWYCH
-        JSlider sSkipsNum = new JSlider(JSlider.HORIZONTAL,1,10,2);
+
         sSkipsNum.setMinorTickSpacing(1);
         sSkipsNum.setMajorTickSpacing(3);
         sSkipsNum.setPaintTicks(true);
@@ -153,13 +168,13 @@ public class InterfaceConfigWindow extends FramePanel {
         lSkipsNum.setBounds(132,90,98,15);
         pCustomConfig.add(sSkipsNum);
 
-        JCheckBox cbPossibleUndos = new JCheckBox("Possible Undos");
+
         cbPossibleUndos.setFocusable(false);
         cbPossibleUndos.setBounds(245,100,100,40);
         pCustomConfig.add(cbPossibleUndos);
 
         //LICZBA STATKÓW I
-        JSlider sSmallShips = new JSlider(JSlider.HORIZONTAL,0,10,4);
+
         sSmallShips.setMinorTickSpacing(1);
         sSmallShips.setMajorTickSpacing(2);
         sSmallShips.setPaintTicks(true);
@@ -169,7 +184,7 @@ public class InterfaceConfigWindow extends FramePanel {
         lNumberOfShips.setBounds(20,150,100,40);
         pCustomConfig.add(sSmallShips);
         //LICZBA STATKÓW II
-        JSlider sMediumShips = new JSlider(JSlider.HORIZONTAL,0,10,3);
+
         sMediumShips.setMinorTickSpacing(1);
         sMediumShips.setMajorTickSpacing(2);
         sMediumShips.setPaintTicks(true);
@@ -178,7 +193,7 @@ public class InterfaceConfigWindow extends FramePanel {
         sMediumShips.setBounds(130,300,100,40);
         pCustomConfig.add(sMediumShips);
         //LICZBA STATKÓW III
-        JSlider sLargeShips = new JSlider(JSlider.HORIZONTAL,0,10,2);
+
         sLargeShips.setMinorTickSpacing(1);
         sLargeShips.setMajorTickSpacing(2);
         sLargeShips.setPaintTicks(true);
