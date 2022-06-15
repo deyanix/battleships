@@ -34,6 +34,7 @@ public class FrameInterface extends JFrame implements ActionListener {
         if (e.getID() == PlayEvent.EVENT_ID) {
             PlayEvent playEvent = (PlayEvent) e;
             gamePlayManager = playEvent.getManager();
+            gamePlayManager.start();
             changePanel(3);
         }
     }
