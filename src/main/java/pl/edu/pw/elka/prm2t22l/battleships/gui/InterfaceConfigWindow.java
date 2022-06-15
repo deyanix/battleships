@@ -119,13 +119,13 @@ public class InterfaceConfigWindow extends FramePanel {
 
         JLabel lWidthX = new JLabel("Width of the Board:");
         JLabel lHightY = new JLabel("Hight of the Board:");
-        JLabel lVisibleFieldsNum = new JLabel("Error Corrects:");
-        JLabel lSkipsNum = new JLabel("Possible Skips:");
-        JLabel lWithdrawalsNum = new JLabel("Possible Withdrawals:");
+        JLabel lVisibleFieldsNum = new JLabel("Hints");
+        JLabel lSkipsNum = new JLabel("Starting Hints:");
+        JLabel lWithdrawalsNum = new JLabel("Possible Undos:");
         JLabel lNumberOfShips = new JLabel("Number of Ships:");
 
         //SZEROKOŚĆ PLANSZY (OX)
-        JSlider sWidthX = new JSlider(JSlider.HORIZONTAL,2,10,6);
+        JSlider sWidthX = new JSlider(JSlider.HORIZONTAL,4,10,6);
         sWidthX.setMinorTickSpacing(1);
         sWidthX.setMajorTickSpacing(2);
         sWidthX.setPaintTicks(true);
@@ -135,7 +135,7 @@ public class InterfaceConfigWindow extends FramePanel {
         lWidthX.setBounds(43,0,128,15);
         pCustomConfig.add(sWidthX);
         //WYSOKOŚĆ PLANSZY (OY)
-        JSlider sHightY = new JSlider(JSlider.HORIZONTAL,2,10,6);
+        JSlider sHightY = new JSlider(JSlider.HORIZONTAL,4,10,6);
         sHightY.setMinorTickSpacing(1);
         sHightY.setMajorTickSpacing(2);
         sHightY.setPaintTicks(true);
@@ -144,7 +144,7 @@ public class InterfaceConfigWindow extends FramePanel {
         sHightY.setBounds(191,15,130,40);
         lHightY.setBounds(193,0,128,15);
         pCustomConfig.add(sHightY);
-        //LICZBA WIDOCZNYCH NA POCZĄTKU PÓL
+        //LICZBA PODPOWIEDZI
         JSlider sVisibleFieldsNum = new JSlider(JSlider.HORIZONTAL,0,10,2);
         sVisibleFieldsNum.setMinorTickSpacing(1);
         sVisibleFieldsNum.setMajorTickSpacing(2);
@@ -154,10 +154,10 @@ public class InterfaceConfigWindow extends FramePanel {
         sVisibleFieldsNum.setBounds(20,105,100,40);
         lVisibleFieldsNum.setBounds(22,90,98,15);
         pCustomConfig.add(sVisibleFieldsNum);
-        //LICZBA DOZWOLONYCH POMINIEC
-        JSlider sSkipsNum = new JSlider(JSlider.HORIZONTAL,0,10,2);
+        //LICZBA PODPOWIEDZI STARTOWYCH
+        JSlider sSkipsNum = new JSlider(JSlider.HORIZONTAL,1,10,2);
         sSkipsNum.setMinorTickSpacing(1);
-        sSkipsNum.setMajorTickSpacing(2);
+        sSkipsNum.setMajorTickSpacing(3);
         sSkipsNum.setPaintTicks(true);
         sSkipsNum.setPaintLabels(true);
         sSkipsNum.setFocusable(false);
