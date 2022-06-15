@@ -1,5 +1,6 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
+import pl.edu.pw.elka.prm2t22l.battleships.entity.Location;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.ShipType;
 import pl.edu.pw.elka.prm2t22l.battleships.generator.BoardGenerator;
 
@@ -13,10 +14,10 @@ public class Main {
 		configuration.setShipAmount(ShipType.LONG, 1);
 		configuration.setShipAmount(ShipType.MEDIUM, 2);
 		configuration.setShipAmount(ShipType.SHORT, 3);
-		configuration.setSeed(1);
+		configuration.setSeed(ThreadLocalRandom.current().nextLong());
 
 		BoardGenerator generator = new BoardGenerator(configuration);
-		generator.generate();
+		while (!generator.generate());
 
 		JFrame frame = new JFrame();
 		frame.setSize(600,600);

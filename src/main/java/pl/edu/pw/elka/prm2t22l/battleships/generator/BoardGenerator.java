@@ -64,22 +64,30 @@ public class BoardGenerator {
 
 	public boolean validateShip(Ship ship) {
 		for (Location location : rasterizer.getShipLocations(ship, BoardRasterizer.RASTERIZE_SHIP)) {
-			if (!isEmptyLocation(location)) {
-				return false;
-			}
-		}
-
-		for (Location location : rasterizer.getShipLocations(ship, BoardRasterizer.RASTERIZE_BORDER)) {
-			if (board.isLocationAvailable(location) && !isEmptyLocation(location)) {
+			if (!isEmptyLocation(location) || !validateAround(location)) {
 				return false;
 			}
 		}
 		return true;
 	}
 
+	public boolean validateAround(Location location) {
+		for (int x = -1; x <= 1; x++) {
+			for (int y = -1; y <= 1; y++) {
+				if (x != 0 || y != 0) {
+					Location current = location.translate(x, y);
+					if (board.isLocationAvailable(current) && !isEmptyLocation(current)) {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+ 	}
+
 	public void placeShip(Ship ship) {
 		board.addShip(ship);
-		for (Location location : rasterizer.getShipLocations(ship, BoardRasterizer.RASTERIZE_BOTH)) {
+		for (Location location : rasterizer.getShipLocations(ship, BoardRasterizer.RASTERIZE_SHIP)) {
 			emptyLocations.remove(location);
 		}
 	}

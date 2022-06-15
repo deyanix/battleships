@@ -50,7 +50,6 @@ public class BoardRenderer {
     }
 
     private void drawField(Graphics g) {
-
         for (Field field : board) {
             Point point = mapToImagePoint(field.getLocation());
             if (field.getState() == FieldState.WATER) {

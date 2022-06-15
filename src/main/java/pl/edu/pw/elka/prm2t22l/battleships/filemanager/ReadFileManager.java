@@ -8,7 +8,6 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class ReadFileManager {
-
     public JSONObject readFile(String fileName) {
         try {
             JSONManager jsonManager = new JSONManager();
