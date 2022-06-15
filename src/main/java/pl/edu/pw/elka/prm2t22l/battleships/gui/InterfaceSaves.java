@@ -15,13 +15,9 @@ public class InterfaceSaves extends FramePanel{
 //------MIEJSCE NA NAPIS---------------------------------------------
         JPanel pIconPlace = new JPanel();
 
-        try {
-            BufferedImage iLogo = ImageIO.read(new File("src\\main\\resources\\saves.png"));
-            JLabel lBattleshipLogo = new JLabel(new ImageIcon(iLogo));
-            pIconPlace.add(lBattleshipLogo);
-        } catch (IOException e){}
+        JLabel lBattleshipLogo = new JLabel(new ImageIcon("src\\main\\resources\\saves.png"));
+        pIconPlace.add(lBattleshipLogo);
 
-        //pIconPlace.setBackground(Color.cyan);
         pIconPlace.setBounds(205,10,200,70);
 //------MIEJSCE NA PRZYCISKI Z SAVEAMI--------------------------------
         JPanel pSavesPlace = new JPanel();
@@ -29,9 +25,6 @@ public class InterfaceSaves extends FramePanel{
         GridLayout gl = new GridLayout(20,1);
         pSavesPlace.setLayout(gl);
 
-        //JButton b1 = new JButton("Save1");
-        //b1.setFocusable(false);
-        //b1.setSize(100,500);
         pSavesPlace.add(new JButton("Save1"));
         pSavesPlace.add(new JButton("Save2"));
         pSavesPlace.add(new JButton("Save3"));

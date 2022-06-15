@@ -28,11 +28,8 @@ public class InterfaceMainMenu extends FramePanel{
         pButtonsPlace.setBounds(0,200,600,400);
         pButtonsPlace.setLayout(null);
 
-        try {
-            BufferedImage iLogo = ImageIO.read(new File("src\\main\\resources\\battleship_logo.png"));
-            JLabel lBattleshipLogo = new JLabel(new ImageIcon(iLogo));
-            pLogoPlace.add(lBattleshipLogo);
-        } catch (IOException e){}
+        JLabel lBattleshipLogo = new JLabel(new ImageIcon("src\\main\\resources\\battleship_logo.png"));
+        pLogoPlace.add(lBattleshipLogo);
 
         bNewGame.setBounds(225, 5,150,50);
         bLoadGame.setBounds(225, 60,150,50);
@@ -45,34 +42,14 @@ public class InterfaceMainMenu extends FramePanel{
         bExit.setFocusable(false);
 
 //------NEW GAME BUTTON ACTION----------------------------------
-        bNewGame.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                changePanel(2);
-            }
-        });
+        bNewGame.addActionListener(e -> changePanel(2));
 //------LOAD BUTTON ACTION--------------------------------------
-        bLoadGame.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                changePanel(4);
-            }
-        });
+        bLoadGame.addActionListener(e -> changePanel(4));
 //------SCOREBOARD BUTTON ACTION--------------------------------
-        bScoreboard.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                changePanel(5);
-            }
-        });
+        bScoreboard.addActionListener(e -> changePanel(5));
 
 //------EXIT BUTTON ACTION--------------------------------------
-        bExit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        bExit.addActionListener(e -> System.exit(0));
 
         pButtonsPlace.add(bNewGame);
         pButtonsPlace.add(bLoadGame);
