@@ -30,15 +30,8 @@ public class GameBoard extends AbstractBoard {
 		for (int i = 0; i < computedBoard.getHeight(); i++) {
 			for (int j = 0; j < computedBoard.getWidth(); j++) {
 				FieldState currentFieldsState = playerBoard.getField(i, j).getState();
-				if (currentFieldsState == FieldState.BATTLESHIP){
-					if(computedBoard.getField(i, j).getState() != FieldState.BATTLESHIP){
+				if (currentFieldsState != computedBoard.getField(i, j).getState()){
 						wronglyPlaced.add(new Point(i, j));
-					}
-				}
-				else if(currentFieldsState == FieldState.WATER){
-					if(computedBoard.getField(i, j).getState() == FieldState.BATTLESHIP){
-						wronglyPlaced.add(new Point(i, j));
-					}
 				}
 			}
 		}
