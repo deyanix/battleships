@@ -13,6 +13,7 @@ public class BoardRasterizer {
 	public static final int RASTERIZE_BORDER = 0b10;
 	public static final int RASTERIZE_BOTH = RASTERIZE_SHIP | RASTERIZE_BORDER;
 	private final VectorBoard board;
+	private FieldState fillState = FieldState.EMPTY;
 
 	public BoardRasterizer(VectorBoard board) {
 		this.board = board;
@@ -20,8 +21,8 @@ public class BoardRasterizer {
 
 	public RasterBoard rasterize() {
 		RasterBoard rasterBoard = new RasterBoard(board.getWidth(), board.getHeight());
+		rasterBoard.fill(fillState);
 		for (Ship ship : board.getShips()) {
-			System.out.println(ship);
 			for (Location location : getShipLocations(ship, RASTERIZE_SHIP)) {
 				rasterBoard.getField(location).setState(FieldState.BATTLESHIP);
 			}
@@ -54,4 +55,11 @@ public class BoardRasterizer {
 		return locations.toArray(new Location[0]);
 	}
 
+	public FieldState getFillState() {
+		return fillState;
+	}
+
+	public void setFillState(FieldState fillState) {
+		this.fillState = fillState;
+	}
 }

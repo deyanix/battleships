@@ -40,8 +40,8 @@ public class BoardGenerator {
 		return board;
 	}
 
-	public RasterBoard getRasterBoard() {
-		return rasterizer.rasterize();
+	public BoardRasterizer getRasterizer() {
+		return rasterizer;
 	}
 
 	public Orientation getRandomOrientation() {

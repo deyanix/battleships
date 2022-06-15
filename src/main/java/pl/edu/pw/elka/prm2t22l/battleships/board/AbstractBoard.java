@@ -19,6 +19,10 @@ public abstract class AbstractBoard {
 		return height;
 	}
 
+	public int getCapacity() {
+		return width*height;
+	}
+
 	public boolean isLocationAvailable(int x, int y) {
 		return x >= 0 && x < getWidth() && y >= 0 && y < getHeight();
 	}

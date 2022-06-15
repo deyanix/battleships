@@ -1,5 +1,6 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
+import pl.edu.pw.elka.prm2t22l.battleships.board.BoardRasterizer;
 import pl.edu.pw.elka.prm2t22l.battleships.board.GameBoard;
 import pl.edu.pw.elka.prm2t22l.battleships.board.RasterBoard;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Field;
@@ -10,6 +11,10 @@ import pl.edu.pw.elka.prm2t22l.battleships.generator.BoardGenerator;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 import java.util.Stack;
 
 public class GamePlayManager {
@@ -40,11 +45,34 @@ public class GamePlayManager {
 		BoardGenerator generator = new BoardGenerator(configuration);
 		for (int i = 0; i < N; i++) {
 			if (generator.generate()) {
-				board = new GameBoard(generator.getRasterBoard());
+				BoardRasterizer rasterizer = generator.getRasterizer();
+				rasterizer.setFillState(FieldState.WATER);
+				board = new GameBoard(rasterizer.rasterize());
+				showInitialFields();
 				return true;
 			}
 		}
 		return false;
+	}
+
+	private void showInitialFields() {
+		Random random = new Random(configuration.getSeed());
+		List<Location> locations = new ArrayList<Location>();
+		int length = Math.min(configuration.getNumberOfVisibleFields(), board.getCapacity());
+		while (locations.size() < length) {
+			Location currentLocation = new Location(
+					random.nextInt(getBoard().getWidth()),
+					random.nextInt(getBoard().getHeight()));
+
+			if (!locations.contains(currentLocation)) {
+				Field computedField = getBoard().getComputedBoard().getField(currentLocation);
+				Field playerField = getBoard().getPlayerBoard().getField(currentLocation);
+				playerField.setState(computedField.getState());
+				playerField.setImmutable(true);
+
+				locations.add(currentLocation);
+			}
+		}
 	}
 
 	public void start() {

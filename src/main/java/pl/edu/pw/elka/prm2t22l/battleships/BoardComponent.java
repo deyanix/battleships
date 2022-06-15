@@ -1,7 +1,5 @@
 package pl.edu.pw.elka.prm2t22l.battleships;
 
-import pl.edu.pw.elka.prm2t22l.battleships.board.GameBoard;
-import pl.edu.pw.elka.prm2t22l.battleships.board.RasterBoard;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.Field;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.FieldState;
 
@@ -9,16 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.image.Raster;
-import java.util.ArrayList;
-import java.util.List;
 
 public class BoardComponent extends JPanel {
-    private final GameBoard board;
+    private final GamePlayManager manager;
 
-    public BoardComponent(GameBoard board) {
-        this.board = board;
+    public BoardComponent(GamePlayManager manager) {
+        this.manager = manager;
 
         setSize(new Dimension(1200, 1200));
         addMouseListener(new MouseAdapter() {
@@ -40,12 +34,16 @@ public class BoardComponent extends JPanel {
     }
 
     private void changeFieldState(Field field) {
-        if(field.getState() == FieldState.EMPTY) field.setState(FieldState.WATER);
-        else if(field.getState() == FieldState.WATER) field.setState(FieldState.BATTLESHIP);
-        else field.setState(FieldState.EMPTY);
+        if (!field.isImmutable()) {
+            switch (field.getState()) {
+                case EMPTY -> field.setState(FieldState.WATER);
+                case WATER -> field.setState(FieldState.BATTLESHIP);
+                case BATTLESHIP -> field.setState(FieldState.EMPTY);
+            }
+        }
     }
 
     private BoardRenderer getBoardRenderer() {
-        return new BoardRenderer(board, getWidth(), getHeight());
+        return new BoardRenderer(manager.getBoard(), getWidth(), getHeight());
     }
 }
