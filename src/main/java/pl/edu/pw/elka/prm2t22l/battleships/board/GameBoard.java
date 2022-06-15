@@ -1,5 +1,6 @@
 package pl.edu.pw.elka.prm2t22l.battleships.board;
 
+import pl.edu.pw.elka.prm2t22l.battleships.entity.Field;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.FieldState;
 
 import java.awt.*;
@@ -24,13 +25,21 @@ public class GameBoard extends AbstractBoard {
 		return playerBoard;
 	}
 
+	public void transferToPlayer() {
+		for (Field field : computedBoard) {
+			Field playerField = playerBoard.getField(field.getLocation());
+			playerField.setState(field.getState());
+			playerField.setImmutable(true);
+		}
+	}
+
 	public List<Point> compareBoards() {
 		List<Point> differences = new ArrayList<>();
 		for (int i = 0; i < computedBoard.getHeight(); i++) {
 			for (int j = 0; j < computedBoard.getWidth(); j++) {
 				FieldState currentState = playerBoard.getField(i, j).getState();
 				FieldState computedState = computedBoard.getField(i, j).getState();
-				if (currentState != computedState){
+				if (currentState != computedState) {
 					differences.add(new Point(i, j));
 				}
 			}
