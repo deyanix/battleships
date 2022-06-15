@@ -1,5 +1,6 @@
 package pl.edu.pw.elka.prm2t22l.battleships.gui;
 
+import java.util.List;
 import java.awt.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -7,12 +8,14 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
-public class InterfaceMainMenu extends Canvas{
+public class InterfaceMainMenu extends FramePanel{
+
+
 
     public InterfaceMainMenu() throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        JFrame fMainMenu = new JFrame("BATTLESHIPS");
         JButton bNewGame = new JButton("New Game");
         JButton bLoadGame = new JButton("Load Game");
         JButton bScoreboard = new JButton("Scoreboard");
@@ -26,7 +29,7 @@ public class InterfaceMainMenu extends Canvas{
         pButtonsPlace.setLayout(null);
 
         try {
-            BufferedImage iLogo = ImageIO.read(new File("docs\\battleship_logo.png"));
+            BufferedImage iLogo = ImageIO.read(new File("src\\main\\resources\\battleship_logo.png"));
             JLabel lBattleshipLogo = new JLabel(new ImageIcon(iLogo));
             pLogoPlace.add(lBattleshipLogo);
         } catch (IOException e){}
@@ -35,6 +38,33 @@ public class InterfaceMainMenu extends Canvas{
         bLoadGame.setBounds(225, 60,150,50);
         bScoreboard.setBounds(225, 115,150,50);
         bExit.setBounds(225, 170,150,50);
+
+        bNewGame.setFocusable(false);
+        bLoadGame.setFocusable(false);
+        bScoreboard.setFocusable(false);
+        bExit.setFocusable(false);
+
+//------NEW GAME BUTTON ACTION----------------------------------
+        bNewGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                changePanel(2);
+            }
+        });
+//------LOAD BUTTON ACTION--------------------------------------
+        bLoadGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                changePanel(4);
+            }
+        });
+//------SCOREBOARD BUTTON ACTION--------------------------------
+        bScoreboard.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                changePanel(5);
+            }
+        });
 
 //------EXIT BUTTON ACTION--------------------------------------
         bExit.addActionListener(new ActionListener() {
@@ -49,27 +79,13 @@ public class InterfaceMainMenu extends Canvas{
         pButtonsPlace.add(bScoreboard);
         pButtonsPlace.add(bExit);
 
-        Image icon = Toolkit.getDefaultToolkit().getImage("docs\\warship.png");
-        fMainMenu.setIconImage(icon);
+        setSize(600,600);
 
-        fMainMenu.setSize(600,600);
-        /*
-        fMainMenu.add(bNewGame);
-        fMainMenu.add(bLoadGame);
-        fMainMenu.add(bScoreboard);
-        fMainMenu.add(bExit);
-         */
-        fMainMenu.add(pLogoPlace);
-        fMainMenu.add(pButtonsPlace);
-        fMainMenu.setLayout(null);
-        fMainMenu.setVisible(true);
-
-        fMainMenu.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                System.exit(0);
-            }
-        });
-
+        add(pLogoPlace);
+        add(pButtonsPlace);
+        setLayout(null);
+        setVisible(true);
     }
+
+
 }
