@@ -7,6 +7,7 @@ import org.json.JSONTokener;
 import pl.edu.pw.elka.prm2t22l.battleships.GameConfiguration;
 import pl.edu.pw.elka.prm2t22l.battleships.GamePlayManager;
 import pl.edu.pw.elka.prm2t22l.battleships.board.RasterBoard;
+import pl.edu.pw.elka.prm2t22l.battleships.entity.Field;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.FieldState;
 import pl.edu.pw.elka.prm2t22l.battleships.entity.ShipType;
 
@@ -54,7 +55,9 @@ public class ReadFileManager {
             int y = jsonObjField.getInt("y");
             boolean immutable = jsonObjField.getBoolean("immutable");
             String stateText = jsonObjField.getString("state");
-            board.getField(x, y).setState(FieldState.valueOf(stateText));
+            Field field = board.getField(x, y);
+            field.setState(FieldState.valueOf(stateText));
+            field.setImmutable(immutable);
         }
         return manager;
     }
